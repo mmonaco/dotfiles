@@ -1,0 +1,15 @@
+# Tmux is pretty good about starting the server when it needs to. However, this
+# *might* reduce some latency. It also feels cleaner because it decouples the
+# server from any particular login session and environmental variables.
+#
+# Discussion on a non-forking server: https://github.com/tmux/tmux/issues/16
+
+[Unit]
+Description=tmux
+Documentation=man:tmux
+
+[Service]
+Type=forking
+GuessMainPID=true
+ExecStart=/usr/bin/tmux set-option -g exit-empty off \; start-server
+ExecStop=-/usr/bin/tmux kill-server
