@@ -39,3 +39,13 @@ prompt_command() {
 	alias lsa='ls -A'
 	alias ll='ls -lh'
 	alias la='ll -a'
+
+# dotfiles:
+	# Making a normal repo out of $HOME (with $HOME/.git) can be confusing
+	# and lead to mistakes. Instead store dotfiles.git as a bare repo. Yes,
+	# this masks dot(1) from graphviz but I never use that.
+	alias dot="/usr/bin/git --git-dir='$HOME/.config/dotfiles.git' --work-tree='$HOME'"
+	# I don't remember why this is necessary :/
+	_completion_loader git
+	# Sort of `complete -p git | sed 's/git$/dot/'
+	complete -o bashdefault -o default -o nospace -F _git dot
