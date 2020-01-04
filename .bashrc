@@ -89,6 +89,13 @@ prompt_command() {
 	env() { command env $@ | grep -v LESS_TERMCAP_ | sort; }
 
 start-sway() {
+	declare -a hwmons=(/sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input)
+	if (( ${#hwmons[@]} != 1 )); then
+		echo "Could not determine hwmon path"
+		return
+	fi
+	sed -r "s|[^\"]*coretemp.0[^\"]*|${hwmons[0]}|" -i ~/.config/waybar/config
+
 	exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
 }
 

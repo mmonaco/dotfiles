@@ -26,6 +26,7 @@ window#waybar {
 #backlight,
 #memory,
 #cpu,
+#temperature,
 #battery,
 #network,
 #disk,
@@ -59,7 +60,8 @@ window#waybar {
 #memory {
 	color: #2aa198;
 }
-#pulseaudio.muted {
+#pulseaudio.muted,
+#temperature {
 	color: #b58900;
 }
 #cpu {
@@ -74,6 +76,7 @@ window#waybar {
 #backlight,
 #memory,
 #cpu,
+#temperature,
 #battery {
 	padding: 0 10px;
 }

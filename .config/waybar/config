@@ -38,6 +38,7 @@
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		"cpu",
+		"temperature#cpu",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		//"custom/kernel",
@@ -125,6 +126,9 @@
 	"cpu": {
 		"interval": 5,
 		"format": "CPU {usage:2}%"
+	},
+	"temperature#cpu": {
+		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
 	},
 	"tray": {
 		//"icon-size": 20
