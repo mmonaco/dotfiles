@@ -6,5 +6,10 @@
 # Default user=rwX group=rX other=rX for file creation
 umask 0022
 
+# Local bin dir (and try to only add it once)
+if [ -d "$HOME/.local/bin" -a "${PATH#*$HOME/.local/bin:}" == "$PATH" ]; then
+	export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # We still want bashrc for non-login shells, bash doesn't source it for us.
 [ -r "$HOME"/.bashrc ] && source "$HOME"/.bashrc
