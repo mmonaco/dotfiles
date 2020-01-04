@@ -1,0 +1,141 @@
+# General
+
+	# Window key
+	set $mod Mod4
+	floating_modifier "$mod"
+
+	xwayland enable
+
+	font xft:DejaVu Sans Mono 12
+	hide_edge_borders both
+	set $xfont "-*-dejavu sans mono-*-r-*-*-*-*-*-*-*-*-*-*"
+
+	input type:keyboard xkb_numlock enabled
+	swaybg_command /home/matt/.config/sway/bg
+	output * background /usr/share/backgrounds/monaco/JoshuaTree.jpg stretch
+
+	bar {
+        	position top
+		swaybar_command /home/matt/.config/sway/bar
+        	font xft:DejaVu Sans Mono Book 9
+        	#tray_output primary
+	}
+
+	exec /usr/bin/systemd-cat -t mako /usr/bin/mako
+
+
+# Session Management
+
+	# no restart like i3, but I'm used to the binding
+	bindsym $mod+Shift+r reload
+	bindsym $mod+Shift+c reload
+	bindsym $mod+Shift+q exit
+	bindsym $mod+l       exec /usr/bin/loginctl lock-session
+
+	set $lock swaylock -f --indicator-radius=200
+	exec /usr/bin/systemd-cat -t swayidle /usr/bin/swayidle -d -w \
+		timeout 300 '$lock -c400000' \
+		timeout 360 'swaymsg "output * dpms off"' \
+		resume 'swaymsg "output * dpms on"' \
+		lock '$lock -c000000'
+
+
+# Sound
+
+	exec /usr/bin/pamixer --set-volume 10
+	exec /usr/bin/pamixer --mute
+
+	bindsym XF86AudioMute              exec /usr/bin/pamixer --toggle-mute
+	bindsym XF86AudioLowerVolume       exec /usr/bin/pamixer --decrease 5 --allow-boost
+	bindsym XF86AudioRaiseVolume       exec /usr/bin/pamixer --increase 5
+	bindsym Shift+XF86AudioRaiseVolume exec /usr/bin/pamixer --increase 5 --allow-boost
+
+	bindsym $mod+s exec /usr/bin/pavucontrol
+
+
+# Launchers
+
+	bindsym $mod+Mod1+BackSpace kill
+	
+	bindsym $mod+semicolon     exec /usr/bin/bemenu-run -b -i --fn "$xfont" -p ""
+	# TODO: Decide on turning status off for local tmux
+	bindsym $mod+Return        exec /usr/bin/alacritty -e /usr/bin/tmux new-session /bin/bash \; set-option -w status off
+	bindsym $mod+Shift+Return  exec /usr/bin/alacritty
+	bindsym $mod+p             exec /usr/bin/alacritty -t python3 -e /usr/bin/python3
+
+	bindsym $mod+bracketleft       exec /usr/bin/chromium
+	bindsym $mod+Ctrl+bracketleft  exec /home/matt/Downloads/tor-browser_en-US/Browser/start-tor-browser
+	bindsym $mod+backslash         exec /usr/bin/thunar
+
+	bindsym $mod+k           exec /usr/local/bin/kpx
+	bindsym $mod+x           exec sudo unshare -nm sudo -u matt /usr/bin/passmenu --type -i -fn "$xfont" -nb red -nf black
+	bindsym $mod+Shift+x     exec sudo unshare -nm sudo -u matt /usr/bin/passmenu        -i -fn "$xfont" -nb red -nf black
+	bindsym Print            exec /usr/bin/slurp | /usr/bin/grim -g - ~/Downloads/"$(date +'%Y-%m-%d %H-%M-%S %Z - Screenshot.png')"
+
+
+# Focus
+
+	focus_follows_mouse yes
+	workspace_auto_back_and_forth yes
+
+	bindsym $mod+Left  focus left
+	bindsym $mod+Down  focus down
+	bindsym $mod+Up    focus up
+	bindsym $mod+Right focus right
+	bindsym $mod+Prior focus parent
+	bindsym $mod+Next  focus child
+
+	bindsym Ctrl+Mod1+Right workspace next_on_output
+	bindsym Ctrl+Mod1+Left  workspace prev_on_output
+
+	bindsym $mod+Shift+space focus mode_toggle
+
+	bindsym $mod+1 workspace 1
+	bindsym $mod+2 workspace 2
+	bindsym $mod+3 workspace 3
+	bindsym $mod+4 workspace 4
+	bindsym $mod+5 workspace 5
+	bindsym $mod+6 workspace 6
+	bindsym $mod+7 workspace 7
+	bindsym $mod+8 workspace 8
+	bindsym $mod+9 workspace 9
+	bindsym $mod+0 workspace 10
+
+# Movement
+
+	bindsym $mod+Shift+Left  move left
+	bindsym $mod+Shift+Down  move down
+	bindsym $mod+Shift+Up    move up
+	bindsym $mod+Shift+Right move right
+	bindsym Ctrl+$mod+Mod1+Left    move container to workspace prev; workspace prev
+	bindsym Ctrl+$mod+Mod1+Right   move container to workspace next; workspace next
+
+
+# Layout
+
+	default_orientation  auto
+	workspace_layout     tabbed
+	bindsym $mod+h       split h
+	bindsym $mod+v       split v
+	bindsym $mod+equal   fullscreen
+	bindsym $mod+minus   floating toggle
+	bindsym $mod+Menu    layout toggle all
+
+
+# Resize
+
+	mode "resize" {
+        	bindsym Left  resize shrink width  10 px or 10 ppt
+        	bindsym Down  resize grow   height 10 px or 10 ppt
+        	bindsym Up    resize shrink height 10 px or 10 ppt
+        	bindsym Right resize grow   width  10 px or 10 ppt
+        	bindsym Return mode "default"
+        	bindsym Escape mode "default"
+	}
+	bindsym $mod+r mode "resize"
+
+
+# Application Quirks
+
+	for_window [class="Keepassx"] floating enable
+	for_window [window_role="app" title="^Google Hangouts" floating] floating disable

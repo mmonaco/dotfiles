@@ -88,6 +88,10 @@ prompt_command() {
 	# filter the above out of `env` since they pollute the terminal
 	env() { command env $@ | grep -v LESS_TERMCAP_ | sort; }
 
+start-sway() {
+	exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
+}
+
 # dotfiles:
 	# Making a normal repo out of $HOME (with $HOME/.git) can be confusing
 	# and lead to mistakes. Instead store dotfiles.git as a bare repo. Yes,

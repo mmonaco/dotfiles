@@ -1,0 +1,2 @@
+#!/bin/bash
+exec systemd-cat -t swaybg --priority=info --stderr-priority=warning /usr/bin/swaybg "$@"
