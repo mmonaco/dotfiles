@@ -1,0 +1,54 @@
+[user]
+	name = Matthew Monaco
+	email = matt@monaco.cx
+
+[github]
+	user = mmonaco
+
+[core]
+	# -FRX is the git default, but isn't applied if $LESS is set.
+	pager = less -FRX
+
+[merge]
+	tool = vimdiff
+	log = 1000
+	stat = true
+
+[mergetool]
+	prompt = false
+
+[diff]
+	tool = vimdiff
+	mnemonicprefix = true
+
+[difftool]
+	prompt = false
+
+[difftool "vimdiff"]
+	cmd = vimdiff -c 'cd $GIT_PREFIX' -c 'set readonly' -c 'wincmd l' "$LOCAL" "$REMOTE"
+
+[color]
+	ui = auto
+
+[format]
+	pretty = %h %ar %Cred %an %Cgreen %s %Creset %d
+	thread = shallow
+
+[rebase]
+	stat = true
+	autosquash = true
+
+[push]
+	default = simple
+
+[alias]
+	# I like to start repos with an empty .gitconfig since it's pretty
+	# universal and gives a consistent root commit that I'd never need to
+	# rebase.
+	i = !cd ${GIT_PREFIX:-.} && git init && touch .gitignore && git add .gitignore && git commit -m init && git tag init
+
+	d = difftool
+	m = mergetool
+	l = log --graph
+	s = status
+	c = commit -v
