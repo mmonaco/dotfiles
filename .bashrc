@@ -24,6 +24,12 @@ if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
 	fi
 fi
 
+# Check for alacritty terminfo
+if [[ "$TERM" = alacritty && ! -e /usr/share/terminfo/a/alacritty ]]; then
+	err 'Warning! TERM=alacritty not available, switching to TERM=xterm-256color'
+	export TERM=xterm-256color
+fi
+
 prompt_command() {
 	case $TERM in
 	xterm*|gnome*|alacritty*)
