@@ -6,6 +6,24 @@
 
 PS1='\u@\h \W\$ '
 
+err() {
+	printf "\033[1;31m%s\033[0m\n" "$*" >&2
+}
+
+# Force tmux for remote sessions 
+if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
+	if [[ "$SSH_CONNECTION" == '::1 '* ]] || [[ "$SSH_CONNECTION" == '127.0.0.1 '* ]]; then
+		err 'Warning! skipping tmux for ssh localhost'
+	elif type tmux &> /dev/null; then
+		# Try to attach to an existing session.
+		# Set /bin/bash explicitly so a login shell is avoided because presumably we
+		# just came from a login shell.
+		exec /usr/bin/tmux new-session -A -s 0 /bin/bash
+	else
+		err 'Warning! tmux not available!'
+	fi
+fi
+
 prompt_command() {
 	case $TERM in
 	xterm*|gnome*|alacritty*)
