@@ -49,3 +49,11 @@ prompt_command() {
 	_completion_loader git
 	# Sort of `complete -p git | sed 's/git$/dot/'
 	complete -o bashdefault -o default -o nospace -F _git dot
+
+# Allow bashrc snippets. I'm hot-and-cold on whether this is cleaner or not.
+# At least two good usecases are 1) large/messy snippets, 2) scratch or local
+# snippets that I don't want to track with dotfiles.git
+for f in ~/.config/bash.d/*.sh; do
+	[[ -r $f ]] && source "$f"
+done
+unset f
