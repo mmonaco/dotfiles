@@ -1,0 +1,132 @@
+// vim:ft=json
+
+{
+	"layer": "top",
+	"position": "top",
+
+	"modules-left": [
+		"idle_inhibitor",
+		"sway/workspaces",
+		"custom/right-arrow-dark"
+	],
+	"modules-center": [
+		"custom/left-arrow-dark",
+		"clock#1",
+		"custom/left-arrow-light",
+		"custom/left-arrow-dark",
+		"clock#2",
+		"custom/right-arrow-dark",
+		"custom/right-arrow-light",
+		"clock#3",
+		"custom/right-arrow-dark"
+	],
+	"modules-right": [
+		"custom/left-arrow-dark",
+		"network#br0",
+		"custom/left-arrow-light",
+		"custom/left-arrow-dark",
+		"pulseaudio",
+		"custom/left-arrow-light",
+		"custom/left-arrow-dark",
+		"disk#root",
+		"custom/left-arrow-light",
+		"custom/left-arrow-dark",
+		"disk#hgst",
+		"custom/left-arrow-light",
+		"custom/left-arrow-dark",
+		"memory",
+		"custom/left-arrow-light",
+		"custom/left-arrow-dark",
+		"cpu",
+		"custom/left-arrow-light",
+		"custom/left-arrow-dark",
+		//"custom/kernel",
+		"tray"
+	],
+
+	"custom/kernel": {
+		"exec": "/usr/bin/uname -r"
+	},
+
+	"network#br0": {
+		"interface": "br0",
+		"format": "{ifname}: {ipaddr}"
+	},
+
+	"disk#root": {
+		"path": "/",
+		"format": "{path}: {percentage_used}%"
+	},
+	"disk#hgst": {
+		"path": "/monaco",
+		"format": "hgst: {percentage_used}%"
+	},
+
+	"idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"activated": "<span foreground='yellow'></span>",
+			"deactivated": "<span foreground='gray'></span>"
+		}
+	},
+
+	"custom/left-arrow-dark": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/left-arrow-light": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right-arrow-dark": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right-arrow-light": {
+		"format": "",
+		"tooltip": false
+	},
+
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"format": "{name}"
+	},
+
+	"clock#1": {
+		"format": "{:%A}",
+		"tooltip": false
+	},
+	"clock#2": {
+		"interval": 5,
+		"format": "{:%H:%M:%S %Z}",
+		"tooltip": false
+	},
+	"clock#3": {
+		"format": "{:%b %d, %Y}",
+		"tooltip": false
+	},
+
+	"pulseaudio": {
+		"format": "{icon} {volume:2}%",
+		"format-muted": "{icon} ({volume:2}%)",
+		"format-bluetooth": "{icon}  {volume}%",
+		"format-icons": {
+			"headphones": ">♪<",
+			"default": ["♪"] 
+		},
+		"scroll-step": 5,
+		"on-click": "pamixer -t",
+		"on-click-right": "pavucontrol"
+	},
+	"memory": {
+		"interval": 5,
+		"format": "Mem {}%"
+	},
+	"cpu": {
+		"interval": 5,
+		"format": "CPU {usage:2}%"
+	},
+	"tray": {
+		//"icon-size": 20
+	}
+}
