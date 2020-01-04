@@ -40,6 +40,18 @@ prompt_command() {
 	alias ll='ls -lh'
 	alias la='ll -a'
 
+# less:
+	# color support, especially for man pages
+	export LESS_TERMCAP_mb=$'\E[01;31m'
+	export LESS_TERMCAP_md=$'\E[01;31m'
+	export LESS_TERMCAP_me=$'\E[0m'
+	export LESS_TERMCAP_se=$'\E[0m'
+	export LESS_TERMCAP_so=$'\E[01;44;33m'
+	export LESS_TERMCAP_ue=$'\E[0m'
+	export LESS_TERMCAP_us=$'\E[01;32m'
+	# filter the above out of `env` since they pollute the terminal
+	env() { command env $@ | grep -v LESS_TERMCAP_ | sort; }
+
 # dotfiles:
 	# Making a normal repo out of $HOME (with $HOME/.git) can be confusing
 	# and lead to mistakes. Instead store dotfiles.git as a bare repo. Yes,
