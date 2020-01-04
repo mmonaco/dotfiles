@@ -41,6 +41,18 @@ prompt_command() {
 	alias la='ll -a'
 
 # less:
+	# Mouse support is quite new so test for it in --help. Without it, most
+	# terminal emulators need to translate scroll to key presses. Tmux
+	# won't do this though so without true less mouse support a lot of very
+	# hacky tmux config is required to get scrolling in less.
+	if [[ "$LESS" != *--mouse* ]]; then
+		if less --help | grep -q -s -- --mouse; then
+			export LESS="$LESS --mouse --wheel-lines=3"
+		elif [[ $TMUX ]]; then
+			err 'Warning! tmux without less --mouse support.'
+		fi
+	fi
+
 	# color support, especially for man pages
 	export LESS_TERMCAP_mb=$'\E[01;31m'
 	export LESS_TERMCAP_md=$'\E[01;31m'
