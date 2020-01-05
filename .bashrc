@@ -47,6 +47,9 @@ prompt_command() {
 	}
 	alias grep-bash=grep-hist
 
+# ps:
+	export PS_FORMAT=user,tty,%cpu,%mem,sz,vsz,rss,ppid,pid,bsdtime,nlwp,args
+
 # ls
 	# This doesn't seem necessary anymore
 	# eval $(dircolors -b)
