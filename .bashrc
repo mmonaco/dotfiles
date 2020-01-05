@@ -31,16 +31,7 @@ if [[ "$TERM" = alacritty && ! -e /usr/share/terminfo/a/alacritty ]]; then
 fi
 
 prompt_command() {
-	case $TERM in
-	xterm*|gnome*|alacritty*)
-		printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"
-		;;
-	screen)
-		printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"
-		;;
-	*)
-		printf "\033]0;%s@%s:%s (default)\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"
-	esac
+	printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"
 }; export PROMPT_COMMAND=prompt_command
 
 # common:
