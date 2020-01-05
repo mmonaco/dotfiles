@@ -71,16 +71,34 @@ prompt_command() {
 		fi
 	fi
 
-	# color support, especially for man pages
-	export LESS_TERMCAP_mb=$'\E[01;31m'
-	export LESS_TERMCAP_md=$'\E[01;31m'
-	export LESS_TERMCAP_me=$'\E[0m'
-	export LESS_TERMCAP_se=$'\E[0m'
-	export LESS_TERMCAP_so=$'\E[01;44;33m'
-	export LESS_TERMCAP_ue=$'\E[0m'
-	export LESS_TERMCAP_us=$'\E[01;32m'
-	# filter the above out of `env` since they pollute the terminal
-	env() { command env $@ | grep -v LESS_TERMCAP_ | sort; }
+# man:
+	# Remap bold, underline, etc to colorized sequences. These are all
+	# basic sequences that seem to be the same for every $TERM I encounter,
+	# so don't bother with tput(1).
+	man() {
+		# termcap | terminfo | description
+		#   mb    |  blink   | "start blink"
+		#   md    |  bold    | "start bold"
+		#   me    |  sgr0    | "turn off blink, bold, underline"
+		#   so    |  smso    | "start standout (reverse video)
+		#   se    |  rmso    | "stop standout"
+		#   us    |  smul    | "start underline"
+		#   ue    |  rmul    | "stop underline"
+		#
+		LESS_TERMCAP_mb=$'\E[1;36m' \
+		LESS_TERMCAP_md=$'\E[1;31m' \
+		LESS_TERMCAP_me=$'\E[0m' \
+		LESS_TERMCAP_so=$'\E[1;33;44m' \
+		LESS_TERMCAP_se=$'\E[0m' \
+		LESS_TERMCAP_us=$'\E[1;32m' \
+		LESS_TERMCAP_ue=$'\E[0m' \
+		command man "$@"
+	}
+
+# misc:
+	env() { command env "$@" | sort; }
+
+
 
 start-sway() {
 	declare -a hwmons=(/sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input)
