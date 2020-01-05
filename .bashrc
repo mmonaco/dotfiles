@@ -95,21 +95,48 @@ prompt_command() {
 		command man "$@"
 	}
 
-# misc:
+# misc aliases and wrappers:
 	env() { command env "$@" | sort; }
+	alias grep='grep --color=auto'
+	alias tree='tree -C --dirsfirst'
+	alias cp='cp --reflink=auto'
+	alias vim='vim -p'
+	alias df='df -H'
+	alias R="R --no-save"
+	alias ffmpeg='ffmpeg -hide_banner'
+	alias ffprobe='ffprobe -hide_banner'
+	alias srsync='rsync --rsync-path="sudo rsync"'
 
+# misc custom utils:
+	alias rename="vim -cRename"
+	alias vimt='column -t | vim - +"set nowrap"'
+	alias ash='/usr/lib/initcpio/busybox ash'
+	alias bashrc='source ~/.bashrc'
+	alias gcd='cd $(git rev-parse --show-toplevel)'
+	alias pp='sudo ~/src/monaco.pp/puppet.sh'
+	eject() { [[ $1 ]] && sudo tee /sys/block/"$1"/device/delete <<<1 ; }
+	alias dateh='date --help|sed "/^ *%a/,/^ *%Z/!d;y/_/!/;s/^ *%\([:a-z]\+\) \+/\1_/gI;s/%/#/g;s/^\([a-y]\|[z:]\+\)_/%%\1_%\1_/I"|while read L;do date "+${L}"|sed y/!#/%%/;done|column -ts_'
+	alias gccopts="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
+	randmac() {
+		perl -e 'for ($i=0;$i<5;$i++){@m[$i]=int(rand(256));} printf "02:%x:%x:%x:%x:%x\n",@m;'
+	}
+	docker-rmi() {
+		docker rmi $(docker images | awk '/^<none>/ { print $3}')
+	}
+	d-centos() { docker run -ti --rm --name centos -h centos "$@" mmonaco/centos ; }
+	d-ubuntu() { docker run -ti --rm --name ubuntu -h ubuntu "$@" ubuntu ; }
+	d-debian() { docker run -ti --rm --name debian -h debian "$@" debian:8 ; }
 
+	start-sway() {
+		declare -a hwmons=(/sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input)
+		if (( ${#hwmons[@]} != 1 )); then
+			echo "Could not determine hwmon path"
+			return
+		fi
+		sed -r "s|[^\"]*coretemp.0[^\"]*|${hwmons[0]}|" -i ~/.config/waybar/config
 
-start-sway() {
-	declare -a hwmons=(/sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input)
-	if (( ${#hwmons[@]} != 1 )); then
-		echo "Could not determine hwmon path"
-		return
-	fi
-	sed -r "s|[^\"]*coretemp.0[^\"]*|${hwmons[0]}|" -i ~/.config/waybar/config
-
-	exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
-}
+		exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
+	}
 
 # dotfiles:
 	# Making a normal repo out of $HOME (with $HOME/.git) can be confusing
