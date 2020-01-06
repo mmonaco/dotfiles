@@ -9,6 +9,9 @@
 	# -FRX is the git default, but isn't applied if $LESS is set.
 	pager = less -FRX
 
+[commit]
+	verbose = true
+
 [merge]
 	tool = vimdiff
 	log = 1000
