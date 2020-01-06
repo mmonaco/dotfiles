@@ -2,7 +2,7 @@
 # manually from .profile for login shells too.
 
 # Stop if not an interactive session.
-[[ $- != *i* ]] && return
+[[ "${-##*i*}" ]] && return
 
 PS1='\u@\h \W\$ '
 
