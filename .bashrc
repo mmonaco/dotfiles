@@ -148,6 +148,11 @@ prompt_command() {
 		fi
 		sed -r "s|[^\"]*coretemp.0[^\"]*|${hwmons[0]}|" -i ~/.config/waybar/config
 
+		# This is sort of a standard. At least some programs use it to
+		# determine X11 vs Wayland. The logind session will still be
+		# Type=tty; AFAIK there's no way to change it once logged in by
+		# pam_systemd/logind.
+		XDG_SESSION_TYPE=wayland \
 		exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
 	}
 
