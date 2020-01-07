@@ -5,6 +5,7 @@
 	floating_modifier "$mod"
 
 	xwayland enable
+	for_window [shell="xwayland"] title_format "%title (X11)"
 
 	font xft:DejaVu Sans Mono 12
 	hide_edge_borders both
