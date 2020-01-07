@@ -141,13 +141,6 @@ prompt_command() {
 	d-debian() { docker run -ti --rm --name debian -h debian "$@" debian:8 ; }
 
 	start-sway() {
-		declare -a hwmons=(/sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input)
-		if (( ${#hwmons[@]} != 1 )); then
-			echo "Could not determine hwmon path"
-			return
-		fi
-		sed -r "s|[^\"]*coretemp.0[^\"]*|${hwmons[0]}|" -i ~/.config/waybar/config
-
 		# This is sort of a standard. At least some programs use it to
 		# determine X11 vs Wayland. The logind session will still be
 		# Type=tty; AFAIK there's no way to change it once logged in by

@@ -38,7 +38,17 @@
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		"cpu",
-		"temperature#cpu",
+		// The hwmon path changes for the coretemp module I'm looking
+		// for based on the // module load order at boot. Waybar disables
+		// the modules that don't resolve a path so they don't take up any
+		// space in the status line.
+		// An alternative would be to try to rig modules-load.d to stabalize
+		// the order (of at least coretemp).
+		"temperature#cpu-hwmon0",
+		"temperature#cpu-hwmon1",
+		"temperature#cpu-hwmon2",
+		"temperature#cpu-hwmon3",
+		"temperature#cpu-hwmon4",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		//"custom/kernel",
@@ -127,8 +137,20 @@
 		"interval": 5,
 		"format": "CPU {usage:2}%"
 	},
-	"temperature#cpu": {
+	"temperature#cpu-hwmon0": {
+		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input"
+	},
+	"temperature#cpu-hwmon1": {
+		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
+	},
+	"temperature#cpu-hwmon2": {
 		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
+	},
+	"temperature#cpu-hwmon3": {
+		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input"
+	},
+	"temperature#cpu-hwmon4": {
+		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input"
 	},
 	"tray": {
 		//"icon-size": 20
