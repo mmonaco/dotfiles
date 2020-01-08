@@ -22,5 +22,10 @@ for f in "$HOME"/.config/profile.d/*.sh; do
 done
 unset f
 
+# Sway Wayland Session
+if [[ "$XDG_SESSION_TYPE" == wayland && -z "$WAYLAND_DISPLAY" ]]; then
+	exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway --verbose
+fi
+
 # We still want bashrc for non-login shells, bash doesn't source it for us.
 [[ -r "$HOME"/.bashrc ]] && source "$HOME"/.bashrc
