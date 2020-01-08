@@ -149,6 +149,30 @@ prompt_command() {
 		exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
 	}
 
+# systemd:
+if type systemctl &> /dev/null; then
+	SD=/etc/systemd/system
+	LSD=/lib/systemd/system
+	UD=~/.config/systemd/user
+	LUD=/usr/lib/systemd/user
+	EUD=/etc/systemd/user
+
+	alias sd="sudo systemctl"
+	alias ud="systemctl --user"
+
+	alias log=journalctl
+	alias ulog='journalctl --user'
+
+	_completion_loader systemctl
+	_completion_loader journalctl
+	complete -F _systemctl -o default sd
+	complete -F _systemctl -o default ud
+	complete -F _journalctl -o default log
+	complete -F _journalctl -o default ulog
+
+	alias cgls="systemd-cgls"
+fi
+
 # dotfiles:
 	# Making a normal repo out of $HOME (with $HOME/.git) can be confusing
 	# and lead to mistakes. Instead store dotfiles.git as a bare repo. Yes,
