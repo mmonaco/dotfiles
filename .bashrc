@@ -173,6 +173,21 @@ if type systemctl &> /dev/null; then
 	alias cgls="systemd-cgls"
 fi
 
+# package management:
+	if type pacman &> /dev/null; then
+		update() {
+			sudo pacman -Syuu
+			type auracle &> /dev/null && auracle outdated
+		}
+		alias pm='sudo pacman'
+		_completion_loader pacman
+		complete -F _pacman -o default pm
+	elif type yum &> /dev/null; then
+		update() {
+			sudo yum upgrade
+		}
+	fi
+
 # dotfiles:
 	# Making a normal repo out of $HOME (with $HOME/.git) can be confusing
 	# and lead to mistakes. Instead store dotfiles.git as a bare repo. Yes,
