@@ -33,6 +33,13 @@ prompt_command() {
 			gpg-connect-agent -q updatestartuptty /bye
 	fi
 
+# bash-completion:
+	# some distros source this from a system-wide bashrc, some from
+	# system-wide profile, some from initial copies from /etc/skel, ...
+	if [[ -z $BASH_COMPLETION_VERSINFO && -r /usr/share/bash-completion/bash_completion ]]; then
+		source /usr/share/bash-completion/bash_completion
+	fi
+
 # common:
 	export PAGER=less
 	export EDITOR=vim
