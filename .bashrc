@@ -127,7 +127,11 @@ prompt_command() {
 		perl -e 'for ($i=0;$i<5;$i++){@m[$i]=int(rand(256));} printf "02:%x:%x:%x:%x:%x\n",@m;'
 	}
 	docker-rmi() {
-		docker rmi $(docker images | awk '/^<none>/ { print $3}')
+		declare -a images=(
+			$(docker images | awk '/^<none>/ { print $3 }')
+			"$@"
+		)
+		[[ $images ]] && docker rmi "${images[@]}"
 	}
 	d-centos() { docker run -ti --rm --name centos -h centos "$@" mmonaco/centos ; }
 	d-ubuntu() { docker run -ti --rm --name ubuntu -h ubuntu "$@" ubuntu ; }
