@@ -133,9 +133,9 @@ prompt_command() {
 		)
 		[[ $images ]] && docker rmi "${images[@]}"
 	}
-	d-centos() { docker run -ti --rm --name centos -h centos "$@" mmonaco/centos ; }
-	d-ubuntu() { docker run -ti --rm --name ubuntu -h ubuntu "$@" ubuntu ; }
-	d-debian() { docker run -ti --rm --name debian -h debian "$@" debian:8 ; }
+	d-centos() { docker run -ti --rm --name d-centos -h d-centos "$@" mmonaco/centos:8 ; }
+	d-debian() { docker run -ti --rm --name d-debian -h d-debian "$@" debian:10 ; }
+	d-arch()   { docker run -ti --rm --name d-arch -h d-arch "$@" mmonaco/archlinux ; }
 
 	start-sway() {
 		# This is sort of a standard. At least some programs use it to
