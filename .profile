@@ -33,7 +33,12 @@ if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
 		# Try to attach to an existing session.
 		# Set /bin/bash explicitly so a login shell is avoided because presumably we
 		# just came from a login shell.
-		exec /usr/bin/tmux new-session -A -s 0 /bin/bash
+		tmux_unattached=$(tmux list-sessions | grep -v attached | cut -d: -f1 | head -n1)
+		if [[ $tmux_unattached ]]; then
+			exec /usr/bin/tmux attach-session -t "$tmux_unattached"
+		else
+			exec /usr/bin/tmux new-session /bin/bash
+		fi
 	else
 		err 'Warning! tmux not available!'
 	fi
