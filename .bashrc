@@ -184,6 +184,13 @@ fi
 		update() {
 			sudo yum upgrade
 		}
+	elif type apt-get &> /dev/null; then
+		update() {
+			sudo apt-get update
+			sudo apt-get dist-upgrade
+			sudo apt-get autoremove --purge
+			sudo apt-get autoclean
+		}
 	fi
 
 # dotfiles:
