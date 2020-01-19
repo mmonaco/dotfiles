@@ -25,8 +25,10 @@ prompt_command() {
 	# .profile or .bashrc. However, with updatestartuptty as well, I think
 	# it's more clearly bashrc.
 	if [[ -z "$SSH_AUTH_SOCK" ]]; then
-		export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-		unset SSH_AGENT_PID
+		if systemctl --user is-active --quiet gpg-agent.service gpg-agent-ssh.socket; then
+			export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+			unset SSH_AGENT_PID
+		fi
 	fi
 	if [[ "$SSH_AUTH_SOCK" == */S.gpg-agent.ssh ]]; then
 		systemd-cat -t gpg-connect-agent \
