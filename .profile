@@ -9,10 +9,17 @@ umask 0022
 err() {
 	printf "\033[1;31m%s\033[0m\n" "$*" >&2
 }
+
 # Local bin dir (and try to only add it once)
-if [[ -d "$HOME/.local/bin" && "${PATH#*$HOME/.local/bin:}" == "$PATH" ]]; then
-	export PATH="$HOME/.local/bin:$PATH"
-fi
+add-path() {
+	local path
+	for path in "$@"; do
+		[[ -d "$path" ]] || continue
+		[[ "${PATH#*$path:}" == "$PATH" ]] || continue
+		export PATH="$path:$PATH"
+	done
+}
+add-path "$HOME/.config/bin" "$HOME/.local/bin"
 
 # logind doesn't seem to set this (I think it sets the other XDG vars)
 [[ "$XDG_CONFIG_HOME" ]] || export XDG_CONFIG_HOME="$HOME/.config"
