@@ -1,2 +1,55 @@
 " Set nocompatible first since it's special
 set nocompatible
+
+" Colors
+	set hlsearch
+	if &diff | syntax off | else | syntax enable | endif
+
+	set background=dark
+	command ToggleBG if &bg == 'dark' | set bg=light | else | set bg=dark | endif
+	nmap .. :ToggleBG<CR>
+
+" Indentation
+	filetype plugin indent on
+	set autoindent
+	set copyindent
+	set preserveindent
+	set nosmartindent
+
+" Tabbing
+	set noexpandtab
+	set shiftwidth=8
+	set nosmarttab
+	set softtabstop=0
+	set tabstop=8
+
+" Mouse
+	set mouse=a
+	if has('mouse_sgr') | set ttymouse=sgr | end
+
+" Misc options
+	set noeol
+	set ignorecase
+	set smartcase
+	set backspace=indent,eol,start
+	set cmdheight=1
+	set linebreak
+	set linespace=0
+	set modeline
+	set modelines=5
+	set nonumber
+	set nopaste
+	set pastetoggle=<F12>
+	set restorescreen
+	set ruler
+	set showbreak=>
+	set textwidth=0
+	set undolevels=1000
+	set wrap
+
+" Remember cursor position (for most files)
+	autocmd BufReadPost *
+		\ if ["gitcommit", "hgcommit"]->index(&filetype) < 0
+		\ && line("'\"") > 1 && line("'\"") <= line("$")
+		\ 	| execute "normal! g'\""
+		\ | endif
