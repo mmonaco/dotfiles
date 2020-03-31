@@ -7,7 +7,7 @@
 [Unit]
 Description=tmux
 Documentation=man:tmux
-ConditionVirtualization=!systemd-nspawn
+ConditionFileIsExecutable=/usr/bin/tmux
 
 [Service]
 Type=forking
