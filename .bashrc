@@ -4,7 +4,8 @@
 # Stop if not an interactive session.
 [[ "${-##*i*}" ]] && return
 
-PS1='\u@\h \W\$ '
+BASE_PS1='\u@\h \W\$ '
+PS1="$BASE_PS1"
 
 err() {
 	printf "\033[1;31m%s\033[0m\n" "$*" >&2
@@ -18,6 +19,8 @@ fi
 
 prompt_command() {
 	printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"
+	# reboot-required defined below
+	reboot-required -q && PS1="[REBOOT] $BASE_PS1" || PS1="$BASE_PS1"
 }; export PROMPT_COMMAND=prompt_command
 
 # ssh/gpg-agent:
@@ -204,6 +207,23 @@ fi
 	_completion_loader git
 	# Sort of `complete -p git | sed 's/git$/dot/'
 	complete -o bashdefault -o default -o nospace -F _git dot
+
+# reboot detection:
+	# This is used in PROMPT_COMMAND and should be distro-agnostic
+	declare _is_container=
+	reboot-required() {
+		[[ -z $_is_container ]] && { systemd-detect-virt -qc && _is_container=1 || _is_container=0 ; }
+		(( $_is_container )) && return 1
+		declare -r latest_installed=$(/bin/ls -1 /lib/modules | tail -n1)
+		declare -r current=$(uname -r)
+		declare -r quiet="$1" quiet_re='^(-q|--quiet)$'
+		[[ $latest_installed == $current ]] && return 1
+		if ! [[ $quiet =~ $quiet_re ]]; then
+			printf 'REBOOT REQUIRED | Kernel Installed=<%s>; Running=<%s>\n' \
+				"$latest_installed" "$current" >&2
+		fi
+		return 0
+	}
 
 # Allow bashrc snippets. I'm hot-and-cold on whether this is cleaner or not.
 # At least two good usecases are 1) large/messy snippets, 2) scratch or local
