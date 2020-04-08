@@ -125,7 +125,8 @@ prompt_command() {
 	alias bashrc='source ~/.bashrc'
 	alias gcd='cd $(git rev-parse --show-toplevel)'
 	alias lpp='sudo ~/src/monaco.pp/puppet.sh'
-	alias pp='sudo ruby -W0 /bin/puppet agent --test --show_diff --log-level=info'
+	alias rpp='sudo ruby -W0 /bin/puppet agent --test --show_diff --log-level=info'
+	alias pp=lpp
 	eject() { [[ $1 ]] && sudo tee /sys/block/"$1"/device/delete <<<1 ; }
 	alias dateh='date --help|sed "/^ *%a/,/^ *%Z/!d;y/_/!/;s/^ *%\([:a-z]\+\) \+/\1_/gI;s/%/#/g;s/^\([a-y]\|[z:]\+\)_/%%\1_%\1_/I"|while read L;do date "+${L}"|sed y/!#/%%/;done|column -ts_'
 	alias gccopts="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
