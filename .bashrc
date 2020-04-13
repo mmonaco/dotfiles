@@ -168,15 +168,18 @@ if type systemctl &> /dev/null; then
 	alias ulog='journalctl --user'
 
 	alias mc='sudo machinectl'
+	alias rc='resolvectl'
 
 	_completion_loader systemctl
 	_completion_loader journalctl
 	_completion_loader machinectl
+	_completion_loader resolvectl
 	complete -F _systemctl -o default sd
 	complete -F _systemctl -o default ud
 	complete -F _journalctl -o default log
 	complete -F _journalctl -o default ulog
 	complete -F _machinectl -o default mc
+	complete -F _resolvectl -o default rc
 
 	alias cgls="systemd-cgls"
 fi
