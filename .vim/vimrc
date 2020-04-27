@@ -78,3 +78,5 @@ set nocompatible
 		autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 	augroup END
 
+" FileType specific settings
+	autocmd FileType go setlocal textwidth=110
