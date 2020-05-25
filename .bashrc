@@ -188,8 +188,17 @@ fi
 # package management:
 	if type pacman &> /dev/null; then
 		update() {
-			sudo pacman -Syuu
-			type auracle &> /dev/null && auracle outdated
+			/usr/bin/sudo /usr/bin/pacman -Syuu
+			if type auracle &> /dev/null; then
+				printf "\E[1;34m:: \E[1;37mRunning auracle outdated\E[0m\n" >&2
+				/usr/bin/auracle outdated
+			fi
+			printf "\E[1;34m:: \E[1;37mRunning pacman -Qdt\E[0m\n" >&2
+			/usr/bin/pacman -Qdt
+			printf "\E[1;34m:: \E[1;37mRunning arch-audit\E[0m\n" >&2
+			/usr/bin/arch-audit
+			printf "\E[1;34m:: \E[1;37mRunning pacdiff --output\E[0m\n" >&2
+			/usr/bin/pacdiff --output
 		}
 		alias pm='sudo pacman'
 		_completion_loader pacman
