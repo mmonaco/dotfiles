@@ -53,6 +53,7 @@ fi
 
 # Sway Wayland Session
 if [[ "$XDG_SESSION_TYPE" == wayland && -z "$WAYLAND_DISPLAY" ]]; then
+	export MOZ_ENABLE_WAYLAND=1
 	exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway --verbose
 fi
 
