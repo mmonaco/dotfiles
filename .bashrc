@@ -229,16 +229,20 @@ fi
 # reboot detection:
 	# This is used in PROMPT_COMMAND and should be distro-agnostic
 	declare _is_container=
+	declare _cur_uname_r=$(uname -r)
 	reboot-required() {
 		[[ -z $_is_container ]] && { systemd-detect-virt -qc && _is_container=1 || _is_container=0 ; }
 		(( $_is_container )) && return 1
-		declare -r latest_installed=$(/bin/ls -1 /lib/modules | tail -n1)
-		declare -r current=$(uname -r)
 		declare -r quiet="$1" quiet_re='^(-q|--quiet)$'
-		[[ $latest_installed == $current ]] && return 1
+		if [[ $_cur_uname_r = *lts* ]]; then
+			declare -r latest_installed=$(/bin/ls -1 /lib/modules/ | grep lts | tail -n1)
+		else
+			declare -r latest_installed=$(/bin/ls -1 /lib/modules/ | grep -v lts | tail -n1)
+		fi
+		[[ $latest_installed == $_cur_uname_r ]] && return 1
 		if ! [[ $quiet =~ $quiet_re ]]; then
 			printf 'REBOOT REQUIRED | Kernel Installed=<%s>; Running=<%s>\n' \
-				"$latest_installed" "$current" >&2
+				"$latest_installed" "$_cur_uname_r" >&2
 		fi
 		return 0
 	}
