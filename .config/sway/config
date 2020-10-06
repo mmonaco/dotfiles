@@ -53,6 +53,15 @@
 
 	bindsym $mod+s exec /usr/bin/pavucontrol
 
+	mode "sound" {
+		bindsym Escape mode "default"
+		bindsym --whole-window $mod+BTN_MIDDLE mode "default"
+		bindsym --whole-window BTN_MIDDLE exec /usr/bin/pamixer --toggle-mute
+		bindsym --whole-window button4 exec /usr/bin/pamixer --increase 5 --allow-boost
+		bindsym --whole-window button5 exec /usr/bin/pamixer --decrease 5 --allow-boost
+	}
+	bindsym --whole-window $mod+BTN_MIDDLE mode "sound"
+
 
 # Launchers
 
