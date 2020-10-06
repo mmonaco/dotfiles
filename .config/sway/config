@@ -13,7 +13,8 @@
 
 	input type:keyboard xkb_numlock enabled
 	swaybg_command /home/matt/.config/sway/bg
-	output * background /usr/share/backgrounds/monaco/JoshuaTree.jpg stretch
+
+	include "~/.config/sway/config.`hostname -s`"
 
 	bar {
         	position top
