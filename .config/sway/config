@@ -33,9 +33,9 @@
 	bindsym $mod+Shift+q exit
 	bindsym $mod+l       exec /usr/bin/loginctl lock-session
 
-	set $lock swaylock -f --indicator-radius=200
+	set $lock swaylock -f --ignore-empty-password --indicator-radius=200 --show-failed-attempts --clock --fade-in=1 --grace=0 --screenshots --effect-blur=27x10
 	exec /usr/bin/systemd-cat -t swayidle /usr/bin/swayidle -d -w \
-		timeout 300 '$lock -c400000' \
+		timeout 300 '$lock --inside-color=400000 --fade-in=5 --grace=5' \
 		timeout 360 'swaymsg "output * dpms off"' \
 		resume 'swaymsg "output * dpms on"' \
 		lock '$lock -c000000'
