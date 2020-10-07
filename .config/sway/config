@@ -12,13 +12,15 @@
 	set $xfont "-*-dejavu sans mono-*-r-*-*-*-*-*-*-*-*-*-*"
 
 	input type:keyboard xkb_numlock enabled
-	swaybg_command /home/matt/.config/sway/bg
+	# relative to config
+	swaybg_command ./bg
 
 	include "~/.config/sway/config.`hostname -s`"
 
 	bar {
         	position top
-		swaybar_command /home/matt/.config/sway/bar
+		# relative to original cwd (home)
+		swaybar_command .config/sway/bar
         	font xft:DejaVu Sans Mono Book 9
         	#tray_output primary
 	}
