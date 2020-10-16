@@ -15,7 +15,7 @@
 	# relative to config
 	swaybg_command ./bg
 
-	include "~/.config/sway/config.`hostname -s`"
+	include "~/.config/sway/config.`uname -n`"
 
 	bar {
         	position top
