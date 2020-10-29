@@ -11,7 +11,7 @@ err() {
 }
 
 # Local bin dir (and try to only add it once)
-add-path() {
+add_path() {
 	local path
 	for path in "$@"; do
 		[[ -d "$path" ]] || continue
@@ -19,7 +19,7 @@ add-path() {
 		export PATH="$path:$PATH"
 	done
 }
-add-path "$HOME/.config/bin" "$HOME/.local/bin"
+add_path "$HOME/.config/bin" "$HOME/.local/bin"
 
 # logind doesn't seem to set this (I think it sets the other XDG vars)
 [[ "$XDG_CONFIG_HOME" ]] || export XDG_CONFIG_HOME="$HOME/.config"
