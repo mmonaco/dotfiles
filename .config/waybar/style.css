@@ -30,6 +30,7 @@ window#waybar {
 #battery,
 #network,
 #disk,
+#custom-user,
 #tray {
 	background: #1a1a1a;
 }
@@ -64,6 +65,7 @@ window#waybar {
 #temperature {
 	color: #b58900;
 }
+#custom-user,
 #cpu {
 	color: #6c71c4;
 }

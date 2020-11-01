@@ -52,6 +52,7 @@
 		"temperature#cpu-hwmon4",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
+		"custom/user",
 		//"custom/kernel",
 		"tray"
 	],
@@ -152,6 +153,10 @@
 	},
 	"temperature#cpu-hwmon4": {
 		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input"
+	},
+	"custom/user": {
+		"exec": "/usr/bin/id -nu",
+		"interval": "once"
 	},
 	"tray": {
 		//"icon-size": 20
