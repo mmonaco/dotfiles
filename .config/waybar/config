@@ -32,9 +32,6 @@
 		"disk#root",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
-		"disk#hgst",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
 		"memory",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
@@ -69,10 +66,6 @@
 	"disk#root": {
 		"path": "/",
 		"format": "{path}: {percentage_used}%"
-	},
-	"disk#hgst": {
-		"path": "/monaco",
-		"format": "hgst: {percentage_used}%"
 	},
 
 	"idle_inhibitor": {
