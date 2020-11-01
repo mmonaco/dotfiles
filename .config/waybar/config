@@ -6,6 +6,7 @@
 
 	"modules-left": [
 		"idle_inhibitor",
+		"sway/mode",
 		"sway/workspaces",
 		"custom/right-arrow-dark"
 	],
