@@ -237,7 +237,7 @@ fi
 		if [[ $_cur_uname_r = *lts* ]]; then
 			declare -r latest_installed=$(/bin/ls -1 /lib/modules/ | grep lts | tail -n1)
 		else
-			declare -r latest_installed=$(/bin/ls -1 /lib/modules/ | grep -v lts | tail -n1)
+			declare -r latest_installed=$(/bin/ls -1 /lib/modules/ | grep -v -e lts -e extramodules | tail -n1)
 		fi
 		[[ $latest_installed == $_cur_uname_r ]] && return 1
 		if ! [[ $quiet =~ $quiet_re ]]; then
