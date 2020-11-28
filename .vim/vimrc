@@ -43,6 +43,7 @@ set nocompatible
 	set restorescreen
 	set ruler
 	set showbreak=>
+	set tabpagemax=64
 	set textwidth=0
 	set undolevels=1000
 	set wrap
