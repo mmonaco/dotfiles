@@ -124,8 +124,8 @@ prompt_command() {
 	alias ash='/usr/lib/initcpio/busybox ash'
 	alias bashrc='source ~/.bashrc'
 	alias gcd='cd $(git rev-parse --show-toplevel)'
-	alias lpp='sudo ~/src/monaco.pp/puppet.sh'
-	alias rpp='sudo ruby -W0 /bin/puppet agent --test --show_diff --log-level=info'
+	alias lpp='sudo -E ~/src/monaco.pp/puppet.sh'
+	alias rpp='sudo /bin/puppet agent --test --show_diff --log-level=info'
 	alias pp=lpp
 	alias ct='tmux choose-tree'
 	eject() { [[ $1 ]] && sudo tee /sys/block/"$1"/device/delete <<<1 ; }
