@@ -172,11 +172,8 @@ if type systemctl &> /dev/null; then
 	_completion_loader journalctl
 	_completion_loader machinectl
 	_completion_loader resolvectl
-	complete -F _systemctl -o default sd
-	complete -F _systemctl -o default ud
-	complete -F _journalctl -o default log
-	complete -F _journalctl -o default ulog
-	complete -F _journalctl -o default warnings
+	complete -F _systemctl -o default sd ud
+	complete -F _journalctl -o default log ulog warnings
 	complete -F _machinectl -o default mc
 	complete -F _resolvectl -o default rc
 
