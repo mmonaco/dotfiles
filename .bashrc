@@ -163,6 +163,7 @@ if type systemctl &> /dev/null; then
 
 	alias log=journalctl
 	alias ulog='journalctl --user'
+	alias warnings='/usr/bin/journalctl --system --boot --priority=warning'
 
 	alias mc='sudo machinectl'
 	alias rc='resolvectl'
@@ -175,6 +176,7 @@ if type systemctl &> /dev/null; then
 	complete -F _systemctl -o default ud
 	complete -F _journalctl -o default log
 	complete -F _journalctl -o default ulog
+	complete -F _journalctl -o default warnings
 	complete -F _machinectl -o default mc
 	complete -F _resolvectl -o default rc
 
