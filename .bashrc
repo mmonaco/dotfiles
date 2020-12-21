@@ -190,8 +190,8 @@ fi
 			fi
 			printf "\E[1;34m:: \E[1;37mRunning pacman -Qdt\E[0m\n" >&2
 			/usr/bin/pacman -Qdt
-			printf "\E[1;34m:: \E[1;37mRunning arch-audit -r\E[0m\n" >&2
-			/usr/bin/arch-audit -r
+			printf "\E[1;34m:: \E[1;37mRunning arch-audit\E[0m\n" >&2
+			/usr/bin/arch-audit
 			printf "\E[1;34m:: \E[1;37mRunning pacdiff --output\E[0m\n" >&2
 			/usr/bin/pacdiff --output
 		}
