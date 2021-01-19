@@ -34,7 +34,7 @@
 	ui = auto
 
 [format]
-	pretty = %h %ar %Cred %an %Cgreen %s %Creset %d
+	pretty = %h %cr %Cred %an %Cgreen %s %Creset %d
 	thread = shallow
 
 [rebase]
