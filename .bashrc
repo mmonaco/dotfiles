@@ -158,14 +158,14 @@ if type systemctl &> /dev/null; then
 	LUD=/usr/lib/systemd/user
 	EUD=/etc/systemd/user
 
-	alias sd="sudo systemctl"
+	alias sd="systemctl"
 	alias ud="systemctl --user"
 
 	alias log=journalctl
 	alias ulog='journalctl --user'
 	alias warnings='/usr/bin/journalctl --system --boot --priority=warning'
 
-	alias mc='sudo machinectl'
+	alias mc='machinectl'
 	alias rc='resolvectl'
 
 	_completion_loader systemctl
