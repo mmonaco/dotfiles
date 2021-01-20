@@ -1,10 +1,3 @@
-[user]
-	name = Matthew Monaco
-	email = matt@monaco.cx
-
-[github]
-	user = mmonaco
-
 [core]
 	# -FRX is the git default, but isn't applied if $LESS is set.
 	pager = less -FRX
@@ -58,3 +51,8 @@
 	l = log --graph
 	s = status
 	c = commit -v
+
+[include]
+	path = config.work
+	path = config.priv
+	path = config.local
