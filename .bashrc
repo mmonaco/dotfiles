@@ -219,7 +219,7 @@ fi
 	# I don't remember why this is necessary :/
 	_completion_loader git
 	# Sort of `complete -p git | sed 's/git$/dot/'
-	complete -o bashdefault -o default -o nospace -F _git dot
+	__git_complete dot __git_main  # Ack NOT public function warning
 
 # reboot detection:
 	# This is used in PROMPT_COMMAND and should be distro-agnostic
