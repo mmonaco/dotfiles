@@ -216,10 +216,12 @@ fi
 	# and lead to mistakes. Instead store dotfiles.git as a bare repo. Yes,
 	# this masks dot(1) from graphviz but I never use that.
 	alias dot="/usr/bin/git --git-dir='$HOME/.config/dotfiles.git' --work-tree='$HOME'"
+	alias pdot="/usr/bin/git --git-dir='$HOME/.config/dotfiles.priv.git' --work-tree='$HOME'"
 	# I don't remember why this is necessary :/
 	_completion_loader git
 	# Sort of `complete -p git | sed 's/git$/dot/'
-	__git_complete dot __git_main  # Ack NOT public function warning
+	__git_complete dot  __git_main  # Ack NOT public function warning
+	__git_complete pdot __git_main  # Ack NOT public function warning
 
 # reboot detection:
 	# This is used in PROMPT_COMMAND and should be distro-agnostic
