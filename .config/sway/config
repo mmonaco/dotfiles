@@ -80,8 +80,8 @@
 	bindsym $mod+Shift+Return  exec /usr/bin/alacritty
 	bindsym $mod+p             exec /usr/bin/alacritty -t python3 -e /usr/bin/python3
 
-	bindsym $mod+bracketleft       exec /usr/bin/chromium
-	bindsym $mod+Ctrl+bracketleft  exec /usr/bin/torbrowser-launcher
+	bindsym $mod+bracketleft       exec /usr/bin/firejail /usr/bin/google-chrome-stable
+	bindsym $mod+Ctrl+bracketleft  exec /usr/bin/firejail /usr/bin/torbrowser-launcher
 	bindsym $mod+backslash         exec /usr/bin/thunar
 
 	bindsym $mod+k           exec /usr/local/bin/kpx
