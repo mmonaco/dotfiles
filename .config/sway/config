@@ -69,6 +69,10 @@
 	}
 	bindsym --whole-window $mod+BTN_MIDDLE mode "sound"
 
+# Brightness
+
+bindsym Mod1+XF86AudioLowerVolume exec /usr/bin/brightnessctl set -- -5%
+bindsym Mod1+XF86AudioRaiseVolume exec /usr/bin/brightnessctl set -- +5%
 
 # Launchers
 
