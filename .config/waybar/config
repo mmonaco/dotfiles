@@ -23,7 +23,7 @@
 	],
 	"modules-right": [
 		"custom/left-arrow-dark",
-		"network#br0",
+		"network",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		"pulseaudio",
@@ -58,8 +58,7 @@
 		"exec": "/usr/bin/uname -r"
 	},
 
-	"network#br0": {
-		"interface": "br0",
+	"network": {
 		"format": "{ifname}: {ipaddr}"
 	},
 
