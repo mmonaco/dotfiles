@@ -38,6 +38,8 @@ prompt_command() {
 			gpg-connect-agent -q updatestartuptty /bye
 	fi
 
+	export GPG_TTY=$(tty)
+
 # bash-completion:
 	# some distros source this from a system-wide bashrc, some from
 	# system-wide profile, some from initial copies from /etc/skel, ...
