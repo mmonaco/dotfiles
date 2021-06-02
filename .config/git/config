@@ -51,6 +51,7 @@
 	l = log --graph
 	s = status
 	c = commit -v
+	gcn = gc --prune=now --aggressive
 
 [include]
 	path = config.work
