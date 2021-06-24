@@ -52,6 +52,7 @@
 	s = status
 	c = commit -v
 	gcn = gc --prune=now --aggressive
+	fad = !git fetch && git reset FETCH_HEAD && git diff -R
 
 [include]
 	path = config.work
