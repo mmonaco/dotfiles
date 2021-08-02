@@ -204,12 +204,12 @@ fi
 		update() {
 			sudo yum upgrade
 		}
-	elif type apt-get &> /dev/null; then
+	elif type apt &> /dev/null; then
 		update() {
-			sudo apt-get update
-			sudo apt-get dist-upgrade
-			sudo apt-get autoremove --purge
-			sudo apt-get autoclean
+			sudo apt update
+			sudo apt dist-upgrade
+			sudo apt autoremove --purge
+			sudo apt autoclean
 		}
 	fi
 
