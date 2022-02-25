@@ -19,7 +19,8 @@ colors:
     background: '#000000'
     foreground: '#ffffff'
 
-background_opacity: 0.90
+window:
+  opacity: 0.90
 
 # key_bindings:
 #    # This is not a default, but I haven't thought it through with ubiquitous tmux
