@@ -1,0 +1,2 @@
+ignore whitelist /usr/share/mozilla/extensions
+ignore whitelist /usr/share/webext
