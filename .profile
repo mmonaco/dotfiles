@@ -51,11 +51,5 @@ if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
 	fi
 fi
 
-# Sway Wayland Session
-if [[ "$XDG_SESSION_TYPE" == wayland && -z "$WAYLAND_DISPLAY" ]]; then
-	export MOZ_ENABLE_WAYLAND=1
-	exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway --verbose
-fi
-
 # We still want bashrc for non-login shells, bash doesn't source it for us.
 [[ -r "$HOME"/.bashrc ]] && source "$HOME"/.bashrc
