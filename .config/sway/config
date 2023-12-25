@@ -82,7 +82,7 @@ bindsym Mod1+XF86AudioRaiseVolume exec /usr/bin/brightnessctl set -- +5%
 	
 	bindsym $mod+semicolon     exec /usr/bin/bemenu-run -b -i --fn "$xfont" -p ""
 	# TODO: Decide on turning status off for local tmux
-	bindsym $mod+Return        exec /usr/bin/alacritty -e /usr/bin/tmux new-session /bin/bash \; set-option -w status off
+	bindsym $mod+Return        exec /usr/bin/alacritty -e /usr/bin/tmux new-session /bin/bash
 	bindsym $mod+Shift+Return  exec /usr/bin/alacritty
 	bindsym $mod+p             exec /usr/bin/alacritty -t python3 -e /usr/bin/python3
 
