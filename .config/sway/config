@@ -52,22 +52,22 @@
 
 # Sound
 
-	exec /usr/bin/pamixer --set-volume 10
-	exec /usr/bin/pamixer --mute
+	exec /usr/bin/wpctl set-mute   @DEFAULT_AUDIO_SINK@ 1
+	exec /usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%
 
-	bindsym XF86AudioMute              exec /usr/bin/pamixer --toggle-mute
-	bindsym XF86AudioLowerVolume       exec /usr/bin/pamixer --decrease 5 --allow-boost
-	bindsym XF86AudioRaiseVolume       exec /usr/bin/pamixer --increase 5
-	bindsym Shift+XF86AudioRaiseVolume exec /usr/bin/pamixer --increase 5 --allow-boost
+	bindsym XF86AudioMute              exec /usr/bin/wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
+	bindsym XF86AudioLowerVolume       exec /usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1.50
+	bindsym XF86AudioRaiseVolume       exec /usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.00
+	bindsym Shift+XF86AudioRaiseVolume exec /usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.50
 
 	bindsym $mod+s exec /usr/bin/pavucontrol
 
 	mode "sound" {
 		bindsym Escape mode "default"
 		bindsym --whole-window $mod+BTN_MIDDLE mode "default"
-		bindsym --whole-window BTN_MIDDLE exec /usr/bin/pamixer --toggle-mute
-		bindsym --whole-window button4 exec /usr/bin/pamixer --increase 5 --allow-boost
-		bindsym --whole-window button5 exec /usr/bin/pamixer --decrease 5 --allow-boost
+		bindsym --whole-window BTN_MIDDLE exec /usr/bin/wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
+		bindsym --whole-window button4 exec /usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.50
+		bindsym --whole-window button5 exec /usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1.50
 	}
 	bindsym --whole-window $mod+BTN_MIDDLE mode "sound"
 
