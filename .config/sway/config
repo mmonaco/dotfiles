@@ -32,22 +32,26 @@
 
 # Session Management
 
+	set $lock /usr/bin/systemd-cat -t swaylock swaylock -f --ignore-empty-password --indicator-radius=200 --show-failed-attempts --clock --fade-in=1 --grace=0 --screenshots --effect-blur=27x10
+	set $gdm  /usr/bin/systemd-cat -t gdm-switch-greeter dbus-send --system --print-reply  --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/LocalDisplayFactory org.gnome.DisplayManager.LocalDisplayFactory.CreateTransientDisplay
+
 	# no restart like i3, but I'm used to the binding
 	bindsym $mod+Shift+r reload
 	bindsym $mod+Shift+c reload
 	bindsym $mod+Shift+q exit
 	bindsym $mod+l       exec /usr/bin/loginctl lock-session
+	bindsym --locked $mod+g exec $gdm
 
 	# power management
 	exec /usr/bin/systemd-inhibit --what=handle-power-key /usr/bin/sleep infinity
 	bindsym XF86PowerOff exec swaynag -t warning -m 'Power Menu Options' -B 'Logout' 'swaymsg exit' -B 'Poweroff' 'systemctl poweroff' -B 'Reboot' 'systemctl reboot'
 
-	set $lock /usr/bin/systemd-cat -t swaylock swaylock -f --ignore-empty-password --indicator-radius=200 --show-failed-attempts --clock --fade-in=1 --grace=0 --screenshots --effect-blur=27x10
 	exec /usr/bin/systemd-cat -t swayidle /usr/bin/swayidle -d -w \
-		timeout 300 '$lock --inside-color=400000 --fade-in=5 --grace=5' \
+		timeout 300 '$lock --inside-color=400000 --fade-in=5 --grace=5; $gdm' \
 		timeout 360 'swaymsg "output * dpms off"' \
 		resume 'swaymsg "output * dpms on"' \
-		lock '$lock -c000000'
+		lock '$lock -c000000; $gdm' \
+		unlock '/usr/bin/pkill -USR1 -x swaylock'
 
 
 # Sound
