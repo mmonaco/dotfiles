@@ -7,16 +7,17 @@ main() {
 	local event
 
 	while true; do
+
 		while [[ ! -e "$_SOCKET" ]]; do
 			printf '{"text": " ❌", "tooltip": "Yubikey Touch Detector socket does not exist: %s"}\n' "$_SOCKET"
 			sleep 1
 		done
 		printf '{"text": "  "}\n'
 
-		nc -U "$_SOCKET" | while read -n5 event; do
+		while read -n5 event; do
 			handle_event "$event"
 			print_status
-		done
+		done < <(nc -U "$_SOCKET")
 
 		sleep 1
 	done

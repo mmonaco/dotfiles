@@ -153,6 +153,7 @@
 	},
 	"custom/yubikey": {
 		"exec": ".config/waybar/yubikey",
+		"restart-interval": "1",
 		"return-type": "json"
 	},
 	"tray": {
