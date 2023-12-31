@@ -43,7 +43,7 @@
 	bindsym --locked $mod+g exec $gdm
 
 	# power management
-	exec /usr/bin/systemd-inhibit --what=handle-power-key /usr/bin/sleep infinity
+	exec /usr/bin/systemd-inhibit --what=handle-power-key /usr/bin/swaymsg -t subscribe '["shutdown"]'
 	bindsym XF86PowerOff exec swaynag -t warning -m 'Power Menu Options' -B 'Logout' 'swaymsg exit' -B 'Poweroff' 'systemctl poweroff' -B 'Reboot' 'systemctl reboot'
 
 	exec /usr/bin/systemd-cat -t swayidle /usr/bin/swayidle -d -w \
