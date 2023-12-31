@@ -31,6 +31,7 @@ window#waybar {
 #network,
 #disk,
 #custom-user,
+#custom-yubikey,
 #tray {
 	background: #1a1a1a;
 }

@@ -51,6 +51,7 @@
 		"custom/left-arrow-dark",
 		"custom/user",
 		//"custom/kernel",
+		"custom/yubikey",
 		"tray"
 	],
 
@@ -149,6 +150,10 @@
 	"custom/user": {
 		"exec": "/usr/bin/id -nu",
 		"interval": "once"
+	},
+	"custom/yubikey": {
+		"exec": ".config/waybar/yubikey",
+		"return-type": "json"
 	},
 	"tray": {
 		//"icon-size": 20

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+declare -r _SOCKET="${XDG_RUNTIME_DIR}/yubikey-touch-detector.socket"
+declare -A _ACTIVE
+
+main() {
+	local event
+
+	while true; do
+		while [[ ! -e "$_SOCKET" ]]; do
+			printf '{"text": " ❌", "tooltip": "Yubikey Touch Detector socket does not exist: %s"}\n' "$_SOCKET"
+			sleep 1
+		done
+		printf '{"text": "  "}\n'
+
+		nc -U "$_SOCKET" | while read -n5 event; do
+			handle_event "$event"
+			print_status
+		done
+
+		sleep 1
+	done
+}
+
+handle_event() {
+	declare -r event="$1"
+	declare -r reason="${event:0:3}"
+	declare -r status="${event:4:1}"
+
+	if (( status == 1 )); then
+		_ACTIVE["$reason"]="$status"
+	else
+		unset _ACTIVE["$reason"]
+	fi
+}
+
+print_status() {
+	if (( "${#_ACTIVE[@]}" == 0 )); then
+		printf '{"text": "   ", "tooltip": "No active touches detected."}\n'
+		return
+	fi
+	printf '{"text": " 🔑 ", "tooltip": "Waiting on touch(es) for: %s."}\n' "${!_ACTIVE[*]}"
+}
+
+main "$@"
