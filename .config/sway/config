@@ -77,8 +77,8 @@
 
 # Brightness
 
-bindsym Mod1+XF86AudioLowerVolume exec /usr/bin/brightnessctl set -- -5%
-bindsym Mod1+XF86AudioRaiseVolume exec /usr/bin/brightnessctl set -- +5%
+	bindsym Mod1+XF86AudioLowerVolume exec /usr/bin/brightnessctl set -- -5%
+	bindsym Mod1+XF86AudioRaiseVolume exec /usr/bin/brightnessctl set -- +5%
 
 # Launchers
 
@@ -90,7 +90,8 @@ bindsym Mod1+XF86AudioRaiseVolume exec /usr/bin/brightnessctl set -- +5%
 	bindsym $mod+Shift+Return  exec /usr/bin/alacritty
 	bindsym $mod+p             exec /usr/bin/alacritty -t python3 -e /usr/bin/python3
 
-	bindsym $mod+bracketleft       exec /usr/bin/firejail /usr/bin/google-chrome-stable
+	bindsym $mod+bracketleft       exec /usr/bin/firejail /usr/bin/firefox
+	bindsym $mod+Shift+bracketleft exec /usr/bin/firejail /usr/bin/google-chrome-stable
 	bindsym $mod+backslash         exec /usr/bin/thunar
 
 	bindsym Print            exec /usr/bin/slurp | /usr/bin/grim -g - ~/Downloads/"$(date +'%Y-%m-%d %H-%M-%S %Z - Screenshot.png')"
