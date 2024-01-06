@@ -113,6 +113,7 @@ prompt_command() {
 	eject() { [[ $1 ]] && sudo tee /sys/block/"$1"/device/delete <<<1 ; }
 	alias dateh='date --help|sed "/^ *%a/,/^ *%Z/!d;y/_/!/;s/^ *%\([:a-z]\+\) \+/\1_/gI;s/%/#/g;s/^\([a-y]\|[z:]\+\)_/%%\1_%\1_/I"|while read L;do date "+${L}"|sed y/!#/%%/;done|column -ts_'
 	alias gccopts="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
+	alias notes="vim ~/notes"
 	randmac() {
 		perl -e 'for ($i=0;$i<5;$i++){@m[$i]=int(rand(256));} printf "02:%x:%x:%x:%x:%x\n",@m;'
 	}
