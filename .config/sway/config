@@ -12,8 +12,6 @@
 	set $xfont "-*-dejavu sans mono-*-r-*-*-*-*-*-*-*-*-*-*"
 
 	input type:keyboard xkb_numlock enabled
-	# relative to config
-	swaybg_command ./bg
 
 	include "~/.config/sway/config.priv"
 	include "~/.config/sway/config.`uname -n`"
