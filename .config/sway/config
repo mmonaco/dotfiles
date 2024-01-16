@@ -155,6 +155,7 @@
 	bindsym $mod+equal   fullscreen
 	bindsym $mod+minus   floating toggle
 	bindsym $mod+Menu    layout toggle all
+	bindsym XF86Display  layout toggle all
 
 
 # Resize
