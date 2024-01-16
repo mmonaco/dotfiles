@@ -82,6 +82,15 @@
 	bindsym Mod1+XF86AudioLowerVolume exec /usr/bin/brightnessctl set -- -5%
 	bindsym Mod1+XF86AudioRaiseVolume exec /usr/bin/brightnessctl set -- +5%
 
+# Input
+
+	input type:touchpad {
+		dwt enable
+		tap enable
+		drag enable
+		drag_lock enable
+	}
+
 # Launchers
 
 	bindsym $mod+Mod1+BackSpace kill
