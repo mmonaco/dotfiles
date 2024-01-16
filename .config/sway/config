@@ -77,6 +77,8 @@
 
 # Brightness
 
+	bindsym XF86MonBrightnessDown     exec /usr/bin/brightnessctl set -- -5%
+	bindsym XF86MonBrightnessUp       exec /usr/bin/brightnessctl set -- +5%
 	bindsym Mod1+XF86AudioLowerVolume exec /usr/bin/brightnessctl set -- -5%
 	bindsym Mod1+XF86AudioRaiseVolume exec /usr/bin/brightnessctl set -- +5%
 
