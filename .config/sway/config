@@ -13,9 +13,8 @@
 
 	input type:keyboard xkb_numlock enabled
 
-	include "~/.config/sway/config.priv"
-	include "~/.config/sway/config.`uname -n`"
-	include "~/.config/sway/config.local"
+	include "~/.config/sway/config.d/*.sway.conf"
+	include "~/.config/sway/hosts.d/`uname -n`.sway.conf"
 
 	bar {
         	position top
