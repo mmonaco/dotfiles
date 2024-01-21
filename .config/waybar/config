@@ -71,8 +71,8 @@
 	"idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
-			"activated": "<span foreground='yellow'></span>",
-			"deactivated": "<span foreground='gray'></span>"
+			"activated": "<span foreground='yellow'>👁</span>",
+			"deactivated": "<span foreground='gray'>👁</span>"
 		}
 	},
 
