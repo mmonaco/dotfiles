@@ -9,6 +9,7 @@
 	tool = vimdiff
 	log = 1000
 	stat = true
+	autostash = true
 
 [mergetool]
 	prompt = false
@@ -33,6 +34,7 @@
 [rebase]
 	stat = true
 	autosquash = true
+	autostash = true
 
 [push]
 	default = simple
