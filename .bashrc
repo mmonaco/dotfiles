@@ -24,20 +24,9 @@ prompt_command() {
 }; export PROMPT_COMMAND=prompt_command
 
 # ssh/gpg-agent:
-	# I keep trying to decide if handling SSH_AUTH_SOCK should be in
-	# .profile or .bashrc. However, with updatestartuptty as well, I think
-	# it's more clearly bashrc.
-	if [[ -z "$SSH_AUTH_SOCK" ]]; then
-		if systemctl --user is-active --quiet gpg-agent.service gpg-agent-ssh.socket; then
-			export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-			unset SSH_AGENT_PID
-		fi
-	fi
 	if [[ "$SSH_AUTH_SOCK" == */S.gpg-agent.ssh ]]; then
-		systemd-cat -t gpg-connect-agent \
-			gpg-connect-agent -q updatestartuptty /bye
+		systemd-cat -t gpg-connect-agent gpg-connect-agent -q updatestartuptty /bye
 	fi
-
 	export GPG_TTY=$(tty)
 
 # bash-completion:

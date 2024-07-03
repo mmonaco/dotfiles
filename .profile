@@ -24,6 +24,14 @@ add_path "$HOME/.config/bin" "$HOME/.local/bin"
 # logind doesn't seem to set this (I think it sets the other XDG vars)
 [[ "$XDG_CONFIG_HOME" ]] || export XDG_CONFIG_HOME="$HOME/.config"
 
+# SSH/GPG Agent
+if [[ -z "$SSH_AUTH_SOCK" ]]; then
+	if systemctl --user is-active --quiet gpg-agent-ssh.socket; then
+		export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+		unset SSH_AGENT_PID
+	fi
+fi
+
 # Allow profile snippets. I'm hot-and-cold on whether this is cleaner or not.
 # At least two good usecases are 1) large/messy snippets, 2) scratch or local
 # snippets that I don't want to track with dotfiles.git
