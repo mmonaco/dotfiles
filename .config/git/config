@@ -40,7 +40,10 @@
 	default = simple
 
 [pull]
-	rebase = false
+	rebase = true
+
+[fetch]
+	prune = true
 
 [alias]
 	# I like to start repos with an empty .gitconfig since it's pretty
@@ -55,6 +58,7 @@
 	c = commit -v
 	gcn = gc --prune=now --aggressive
 	fad = !git fetch && git reset FETCH_HEAD && git diff -R
+	pfl = !git push --force-with-lease
 
 [include]
 	path = config.work
