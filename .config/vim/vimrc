@@ -46,7 +46,7 @@ set nocompatible
 	set tabpagemax=64
 	set textwidth=0
 	set undolevels=1000
-	set wrap
+	set nowrap
 
 " Set 'very magic' mode. See ':help magic'.
 	" https://vim.fandom.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic
