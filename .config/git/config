@@ -54,7 +54,7 @@
 	d = difftool
 	m = mergetool
 	l = log --graph
-	s = !cd ${GIT_PREFIX:-./} && git stash list --pretty='%C(yellow)%gd %C(blue)%gs' && git status
+	s = !cd ${GIT_PREFIX:-./} && git status && git stash list --pretty='%C(yellow)%gd %C(blue)%gs' && git log -n1
 	c = commit -v
 	gcn = gc --prune=now --aggressive
 	fad = !git fetch && git reset FETCH_HEAD && git diff -R
