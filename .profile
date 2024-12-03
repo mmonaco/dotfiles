@@ -12,12 +12,14 @@ err() {
 
 # Local bin dir (and try to only add it once)
 add_path() {
-	local path
-	for path in "$@"; do
-		[[ -d "$path" ]] || continue
-		[[ "${PATH#*$path:}" == "$PATH" ]] || continue
-		export PATH="$path:$PATH"
+	local p
+	for p in "$@"; do
+		case ":$PATH:" in
+			*:"$p":*) ;;
+			*) PATH="${p}${PATH:+:$PATH}" ;;
+		esac
 	done
+	export PATH
 }
 add_path "$HOME/.config/bin" "$HOME/.local/bin"
 
