@@ -53,12 +53,11 @@ prompt_command() {
 	export PS_FORMAT=user,tty,%cpu,%mem,sz,vsz,rss,ppid,pid,bsdtime,nlwp,args
 
 # ls
-	# This doesn't seem necessary anymore
-	# eval $(dircolors -b)
 	alias ls='ls --color=auto --group-directories-first'
 	alias lsa='ls -A'
 	alias ll='ls -lh'
 	alias la='ll -a'
+	alias tree='tree -C --dirsfirst'
 
 # less:
 	# Mouse support is quite new so test for it in --help. Without it, most
@@ -75,48 +74,28 @@ prompt_command() {
 	export LESS="$LESS -R --use-color -Dd+r\$Du+b\$"
 
 # man
-	export MANROFFOPT="-P -c"	
+	export MANROFFOPT='-P -c'	
 
-# misc aliases and wrappers:
+# misc aliases, wrappers, utils:
 	env() { command env "$@" | sort; }
 	alias grep='grep --color=auto'
-	alias tree='tree -C --dirsfirst'
 	alias cp='cp --reflink=auto'
 	alias vim='vim -p'
 	alias df='df -H'
-	alias R="R --no-save"
-	alias ffmpeg='ffmpeg -hide_banner'
-	alias ffprobe='ffprobe -hide_banner'
 	alias srsync='rsync --rsync-path="sudo rsync"'
-
-# misc custom utils:
-	alias rename="vim -cRename"
-	alias vimt='column -t | vim - +"set nowrap"'
-	alias ash='/usr/lib/initcpio/busybox ash'
 	alias bashrc='source ~/.bashrc'
 	alias gcd='cd $(git rev-parse --show-toplevel)'
-	alias lpp='sudo -E ~/src/monaco.pp/puppet.sh'
-	alias rpp='sudo /bin/puppet agent --test --show_diff --log-level=info'
-	alias pp=lpp
 	alias ct='tmux choose-tree'
-	eject() { [[ $1 ]] && sudo tee /sys/block/"$1"/device/delete <<<1 ; }
+
+	alias lpp='sudo -E ~/src/monaco.pp/puppet.sh'
+	alias pp=lpp
 	alias dateh='date --help|sed "/^ *%a/,/^ *%Z/!d;y/_/!/;s/^ *%\([:a-z]\+\) \+/\1_/gI;s/%/#/g;s/^\([a-y]\|[z:]\+\)_/%%\1_%\1_/I"|while read L;do date "+${L}"|sed y/!#/%%/;done|column -ts_'
-	alias gccopts="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
 	alias notes="vim ~/notes"
+	alias ffmpeg='ffmpeg -hide_banner'
+	alias ffprobe='ffprobe -hide_banner'
 	randmac() {
 		perl -e 'for ($i=0;$i<5;$i++){@m[$i]=int(rand(256));} printf "02:%x:%x:%x:%x:%x\n",@m;'
 	}
-	docker-rmi() {
-		declare -a images=(
-			$(docker images | awk '/^<none>/ { print $3 }')
-			"$@"
-		)
-		[[ $images ]] && docker rmi "${images[@]}"
-	}
-	d-centos() { docker run -ti --rm --name d-centos -h d-centos "$@" mmonaco/centos:8 ; }
-	d-debian() { docker run -ti --rm --name d-debian -h d-debian "$@" debian:10 ; }
-	d-arch()   { docker run -ti --rm --name d-arch -h d-arch "$@" mmonaco/archlinux ; }
-
 	start-sway() {
 		MOZ_ENABLE_WAYLAND=1 \
 		exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
@@ -130,12 +109,12 @@ if type systemctl &> /dev/null; then
 	LUD=/usr/lib/systemd/user
 	EUD=/etc/systemd/user
 
-	alias sd="systemctl"
-	alias ud="systemctl --user"
+	alias sd='systemctl'
+	alias ud='systemctl --user'
 
-	alias log=journalctl
+	alias log='journalctl --system'
 	alias ulog='journalctl --user'
-	alias warnings='/usr/bin/journalctl --system --boot --priority=warning'
+	alias warnings='journalctl --system --boot --priority=warning'
 
 	alias mc='machinectl'
 	alias rc='resolvectl'
@@ -149,7 +128,7 @@ if type systemctl &> /dev/null; then
 	complete -F _machinectl -o default mc
 	complete -F _resolvectl -o default rc
 
-	alias cgls="systemd-cgls"
+	alias cgls='systemd-cgls'
 fi
 
 # package management:
