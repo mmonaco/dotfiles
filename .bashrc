@@ -87,8 +87,6 @@ prompt_command() {
 	alias gcd='cd $(git rev-parse --show-toplevel)'
 	alias ct='tmux choose-tree'
 
-	alias lpp='sudo -E ~/src/monaco.pp/puppet.sh'
-	alias pp=lpp
 	alias dateh='date --help|sed "/^ *%a/,/^ *%Z/!d;y/_/!/;s/^ *%\([:a-z]\+\) \+/\1_/gI;s/%/#/g;s/^\([a-y]\|[z:]\+\)_/%%\1_%\1_/I"|while read L;do date "+${L}"|sed y/!#/%%/;done|column -ts_'
 	alias notes="vim ~/notes"
 	alias ffmpeg='ffmpeg -hide_banner'
