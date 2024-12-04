@@ -146,6 +146,7 @@ fi
 			printf "\E[1;34m:: \E[1;37mRunning pacdiff --output\E[0m\n" >&2
 			/usr/bin/pacdiff --output
 		}
+		pacman-modified() { pacman -Qii | awk '/\[modified\]/ {print $(NF - 1)}'; }
 		alias pm='sudo pacman'
 		_completion_loader pacman
 		complete -F _pacman -o default pm
