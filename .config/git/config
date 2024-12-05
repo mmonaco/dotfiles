@@ -59,6 +59,7 @@
 	gcn = gc --prune=now --aggressive
 	fad = !git fetch && git reset FETCH_HEAD && git diff -R
 	pfl = !git push --force-with-lease
+	sw = switch
 
 [include]
 	path = config.work
