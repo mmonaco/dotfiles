@@ -4,7 +4,21 @@
 # Stop if not an interactive session.
 [[ "${-##*i*}" ]] && return
 
-BASE_PS1='\u@\h \W\$ '
+# git PS1 support (if available)
+	if ! type -t __git_ps1 &> /dev/null && [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
+		source /usr/share/git/completion/git-prompt.sh
+	fi
+	___git_ps1() {
+		type -t __git_ps1 &> /dev/null || return
+		GIT_PS1_SHOWCOLORHINTS=1
+		GIT_PS1_SHOWDIRTYSTATE=1
+		GIT_PS1_SHOWSTASHSTATE=1
+		GIT_PS1_SHOWUNTRACKEDFILES=1
+		GIT_PS1_SHOWUPSTREAM="auto"
+		__git_ps1 "$@"
+	}
+
+BASE_PS1='\u@\h$(___git_ps1 " [%s]") \W\$ '
 PS1="$BASE_PS1"
 
 err() {
