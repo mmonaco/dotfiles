@@ -26,15 +26,8 @@
 		"network",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
-		"wireplumber",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
 		"disk#root",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
 		"memory",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
 		"cpu",
 		// The hwmon path changes for the coretemp module I'm looking
 		// for based on the // module load order at boot. Waybar disables
@@ -47,6 +40,11 @@
 		"temperature#cpu-hwmon2",
 		"temperature#cpu-hwmon3",
 		"temperature#cpu-hwmon4",
+		"custom/left-arrow-light",
+		"custom/left-arrow-dark",
+		"wireplumber",
+		"backlight",
+		"battery",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		"custom/user",
@@ -112,18 +110,6 @@
 		"tooltip": false
 	},
 
-	"wireplumber": {
-		"format": "{icon} {volume:2}%",
-		"format-muted": "{icon} ({volume:2}%)",
-		"format-bluetooth": "{icon}  {volume}%",
-		"format-icons": {
-			"headphones": ">♪<",
-			"default": ["♪"] 
-		},
-		"scroll-step": 5,
-		"on-click": "/usr/bin/wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle",
-		"on-click-right": "pavucontrol"
-	},
 	"memory": {
 		"interval": 5,
 		"format": "Mem {}%"
@@ -146,6 +132,33 @@
 	},
 	"temperature#cpu-hwmon4": {
 		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input"
+	},
+	"wireplumber": {
+		"format": "{volume:2}% {icon}",
+		"format-muted": "{volume:2}% 🔇",
+		"format-bluetooth": "{icon}  {volume}%",
+		"format-icons": {
+			"headphones": ">♪<",
+			"default": ["🔈", "🔉", "🔊"]
+		},
+		"scroll-step": 5,
+		"on-click": "/usr/bin/wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle",
+		"on-click-right": "pavucontrol"
+	},
+	"backlight": {
+		"format": "{percent}% {icon}",
+		"format-icons": ["🔅", "🔆"]
+	},
+	"battery": {
+		"interval": 2,
+		"format": "{capacity}% {icon}",
+		"format-icons": {
+			"discharging": ["🔋"],
+			"charging": "🔌",
+			"not charging": "🔌",
+			"plugged": "🔌",
+			"default": "?"
+		}
 	},
 	"custom/user": {
 		"exec": "/usr/bin/id -nu",
