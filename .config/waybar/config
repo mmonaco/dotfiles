@@ -5,6 +5,7 @@
 	"position": "top",
 
 	"modules-left": [
+		"custom/pad5120",
 		"idle_inhibitor",
 		"sway/mode",
 		"sway/workspaces",
@@ -47,8 +48,14 @@
 		"image#user",
 		//"custom/kernel",
 		"custom/yubikey",
-		"tray"
+		"tray",
+		"custom/pad5120"
 	],
+
+	"custom/pad5120": {
+		"hide-empty-text": true,
+		"exec": "/bin/bash -c \"(( $(swaymsg -t get_outputs | jq --arg output_name \"$WAYBAR_OUTPUT_NAME\" '.[] | select(.name==$output_name) | .current_mode.width' -r) == 5120 )) && echo -n ​\""
+	},
 
 	"custom/kernel": {
 		"exec": "/usr/bin/uname -r"

@@ -8,6 +8,12 @@ window#waybar {
 	color: #fdf6e3;
 }
 
+#custom-pad5120 {
+	/* 5120 / 2 / 4 = 640 */
+	padding-left: 640;
+	padding-right: 640;
+}
+
 #custom-right-arrow-dark,
 #custom-left-arrow-dark {
 	color: #1a1a1a;
