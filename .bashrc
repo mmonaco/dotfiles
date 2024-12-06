@@ -181,8 +181,8 @@ fi
 	# Making a normal repo out of $HOME (with $HOME/.git) can be confusing
 	# and lead to mistakes. Instead store dotfiles.git as a bare repo. Yes,
 	# this masks dot(1) from graphviz but I never use that.
-	alias dot="/usr/bin/git --git-dir='$HOME/.config/dotfiles.git' --work-tree='$HOME'"
-	alias pdot="/usr/bin/git --git-dir='$HOME/.config/dotfiles.priv.git' --work-tree='$HOME'"
+	dot() { git --git-dir="$HOME/.config/dotfiles.git" --work-tree="$HOME" "$@"; }
+	pdot() { git --git-dir="$HOME/.config/dotfiles.priv.git" --work-tree="$HOME" "$@"; }
 	# I don't remember why this is necessary :/
 	_completion_loader git
 	# Sort of `complete -p git | sed 's/git$/dot/'
