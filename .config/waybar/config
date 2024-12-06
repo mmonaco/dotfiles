@@ -44,6 +44,7 @@
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		"custom/user",
+		"image#user",
 		//"custom/kernel",
 		"custom/yubikey",
 		"tray"
@@ -146,6 +147,9 @@
 	"custom/user": {
 		"exec": "/usr/bin/id -nu",
 		"interval": "once"
+	},
+	"image#user": {
+		"exec": "/usr/bin/sh -c \"printf '.config/waybar/%s.gravatar.jpeg' $(/usr/bin/id -nu)\""
 	},
 	"custom/yubikey": {
 		"exec": ".config/waybar/yubikey",
