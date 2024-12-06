@@ -42,24 +42,5 @@ for f in "$HOME"/.config/profile.d/*.sh; do
 done
 unset f
 
-# Force tmux for remote sessions 
-if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
-	if [[ "$SSH_CONNECTION" == '::1 '* ]] || [[ "$SSH_CONNECTION" == '127.0.0.1 '* ]]; then
-		err 'Warning! skipping tmux for ssh localhost'
-	elif type tmux &> /dev/null; then
-		# Try to attach to an existing session.
-		# Set /bin/bash explicitly so a login shell is avoided because presumably we
-		# just came from a login shell.
-		tmux_unattached=$(tmux list-sessions | grep -v attached | cut -d: -f1 | head -n1)
-		if [[ $tmux_unattached ]]; then
-			exec /usr/bin/tmux attach-session -t "$tmux_unattached"
-		else
-			exec /usr/bin/tmux new-session /bin/bash
-		fi
-	else
-		err 'Warning! tmux not available!'
-	fi
-fi
-
 # We still want bashrc for non-login shells, bash doesn't source it for us.
 [[ -r "$HOME"/.bashrc ]] && source "$HOME"/.bashrc

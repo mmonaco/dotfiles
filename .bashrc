@@ -4,6 +4,32 @@
 # Stop if not an interactive session.
 [[ "${-##*i*}" ]] && return
 
+# Autostart (tmux, sway, bash)
+	start-sway() {
+		MOZ_ENABLE_WAYLAND=1 \
+		exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
+	}
+	if [[ -z "$WAYLAND_DISPLAY" && $(tty) == /dev/tty1 ]]; then
+		start-sway
+	elif [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
+		if [[ "$SSH_CONNECTION" == '::1 '* ]] || [[ "$SSH_CONNECTION" == '127.0.0.1 '* ]]; then
+			err 'Warning! skipping tmux for ssh localhost'
+		elif type tmux &> /dev/null; then
+			# Try to attach to an existing session.
+			# Set /bin/bash explicitly so a login shell is avoided because presumably we
+			# just came from a login shell.
+			tmux_unattached=$(tmux list-sessions | grep -v attached | cut -d: -f1 | head -n1)
+			if [[ $tmux_unattached ]]; then
+				exec /usr/bin/tmux attach-session -t "$tmux_unattached"
+			else
+				exec /usr/bin/tmux new-session /bin/bash
+			fi
+		else
+			err 'Warning! tmux not available!'
+		fi
+	fi
+
+
 # git PS1 support (if available)
 	if ! type -t __git_ps1 &> /dev/null && [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
 		source /usr/share/git/completion/git-prompt.sh
@@ -107,10 +133,6 @@ prompt_command() {
 	alias ffprobe='ffprobe -hide_banner'
 	randmac() {
 		perl -e 'for ($i=0;$i<5;$i++){@m[$i]=int(rand(256));} printf "02:%x:%x:%x:%x:%x\n",@m;'
-	}
-	start-sway() {
-		MOZ_ENABLE_WAYLAND=1 \
-		exec systemd-cat -t sway --priority info --stderr-priority err /usr/bin/sway -d
 	}
 
 # systemd:
