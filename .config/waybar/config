@@ -35,11 +35,7 @@
 		// space in the status line.
 		// An alternative would be to try to rig modules-load.d to stabalize
 		// the order (of at least coretemp).
-		"temperature#cpu-hwmon0",
-		"temperature#cpu-hwmon1",
-		"temperature#cpu-hwmon2",
-		"temperature#cpu-hwmon3",
-		"temperature#cpu-hwmon4",
+		"temperature",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		"wireplumber",
@@ -118,20 +114,7 @@
 		"interval": 5,
 		"format": "CPU {usage:2}%"
 	},
-	"temperature#cpu-hwmon0": {
-		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input"
-	},
-	"temperature#cpu-hwmon1": {
-		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
-	},
-	"temperature#cpu-hwmon2": {
-		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
-	},
-	"temperature#cpu-hwmon3": {
-		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input"
-	},
-	"temperature#cpu-hwmon4": {
-		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input"
+	"temperature": {
 	},
 	"wireplumber": {
 		"format": "{volume:2}% {icon}",
