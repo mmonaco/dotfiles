@@ -1,0 +1,78 @@
+#!/bin/bash
+
+set -eu -o pipefail
+
+info() {
+	declare -r fmt="$1"; shift
+	printf "[sway-battery-nag %s] $fmt\n" "$(date +'%Y-%m-%d %H:%M:%S')" "$@"
+}
+
+main() {
+	declare BAT="BAT0"
+	declare -i ERR_THRESHOLD=10
+	declare -i WARN_THRESHOLD=20
+	declare -i DAEMON=0
+
+	declare -ra orig_args=("$@")
+	eval set -- $(getopt -n "$0" -o 'e:w:b:d:h' --long 'error:,warn:,battery:,daemon:,help,usage' -- "$@")
+
+	while true; do
+		case "$1" in
+			--) shift; break ;;
+			-e) ERR_THRESHOLD="$2"; shift 2; continue ;;
+			-w) WARN_THRESHOLD="$2"; shift 2; continue ;;
+			-d) DAEMON="$2"; shift 2; continue ;;
+			-b) BAT="$2"; shift 2; continue ;;
+			-h|--help|--usage)
+				printf "See code.\n"
+				return 0
+				;;
+			*)
+				printf "Invalid Option: %s\n" "$1"
+				return 1
+				;;
+		esac
+	done
+
+	declare -r BAT ERR_THRESHOLD WARN_THRESHOLD DAEMON
+
+	declare -r DIR="/sys/class/power_supply/$BAT"
+	declare -r STATUS="$DIR/status"
+	declare -r CAPACITY="$DIR/capacity"
+
+	if [[ ! -e "$CAPACITY" ]]; then
+		info 'No battery detected (%s).' "$CAPACITY"
+		return 0
+	fi
+	
+	main_inner || true
+
+	# Implement daemon be re-exec'ing to make it easy to pick up changes.
+	if (( DAEMON > 0 )); then
+		info 'Running as daemon with %ds interval.' "$DAEMON"
+		sleep "$DAEMON"
+		exec "$0" "${orig_args[@]}"
+	fi
+}
+
+main_inner() {
+	declare -r status="$(<"$STATUS")"
+	declare -ri capacity="$(<"$CAPACITY")"
+
+	info 'Current level: %d%% [%s].' "$capacity" "$status"
+
+	if (( capacity <= ERR_THRESHOLD )); then
+		declare -r type="error"
+		declare -ri threshold="$ERR_THRESHOLD"
+	elif (( capacity <= WARN_THRESHOLD )); then
+		declare -r type="warning"
+		declare -ri threshold="$WARN_THRESHOLD"
+	else
+		return 0
+	fi
+
+	info '%s threshold reached: %d ≤ %d.' "${type^}" "$capacity" "$threshold"
+	swaynag -t "$type" -m "$(info '%s threshold reached: %d ≤ %d.' "${type^}" "$capacity" "$threshold")" -B 'Poweroff' 'systemctl poweroff' -s 'Dismiss'
+}
+
+main "$@"

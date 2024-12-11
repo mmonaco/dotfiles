@@ -50,6 +50,8 @@
 		lock '$lock -c000000; $gdm' \
 		unlock '/usr/bin/pkill -USR1 -x swaylock'
 
+	exec exec sway-battery-nag -d 30
+
 
 # Sound
 
