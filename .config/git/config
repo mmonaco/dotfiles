@@ -45,6 +45,9 @@
 [fetch]
 	prune = true
 
+[submodule]
+	recurse = true
+
 [alias]
 	# I like to start repos with an empty .gitconfig since it's pretty
 	# universal and gives a consistent root commit that I'd never need to
