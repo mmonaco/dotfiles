@@ -12,6 +12,7 @@ dot-untracked() {
 	)
 	declare -ra ignore_files=(
 		'\.config/vim/.netrwhist'
+		'\.config/vim/pack/dot/(start|opt)/.*'
 		'\.gnupg/.*\.kbx~?'
 		'\.gnupg/reader_[0-9]+.status'
 		'\.gnupg/sshcontrol'
