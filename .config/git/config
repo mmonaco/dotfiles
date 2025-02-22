@@ -2,6 +2,9 @@
 	# -FRX is the git default, but isn't applied if $LESS is set.
 	pager = less -FRX
 
+[init]
+	defaultBranch = main
+
 [commit]
 	verbose = true
 
