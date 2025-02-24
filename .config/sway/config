@@ -100,6 +100,7 @@
 	# TODO: Decide on turning status off for local tmux
 	bindsym $mod+Return        exec /usr/bin/alacritty -e /usr/bin/tmux new-session /bin/bash
 	bindsym $mod+Shift+Return  exec /usr/bin/alacritty
+	bindsym $mod+Ctrl+Return   exec /usr/bin/alacritty -e bash -ic 'exec ./.config/bin/bemenu-ssh'
 	bindsym $mod+p             exec /usr/bin/alacritty -t python3 -e /usr/bin/python3
 
 	bindsym $mod+bracketleft       exec /usr/bin/firejail /usr/bin/firefox

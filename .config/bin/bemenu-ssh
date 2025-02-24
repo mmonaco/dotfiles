@@ -1,0 +1,22 @@
+#!/bin/bash
+
+main() {
+	declare -r host="$(_hosts | _menu "$@")"
+	declare -ra cmd=(ssh "$host")
+	printf "%s\n" "${cmd[*]}" >&2
+	exec "${cmd[@]}"
+}
+
+_menu() {
+	BEMENU_BACKEND=curses bemenu --ignorecase --no-exec --binding=vim -p 'ssh' -P '>' --center --list 20 "$@"
+}
+
+_hosts() {
+	if [[ -r ~/.ssh/bemenu-ssh ]]; then
+		cat ~/.ssh/bemenu-ssh
+	else
+		printf "Warning: no ~/.ssh/bemenu-ssh hosts file.\n" >&2
+	fi
+}
+
+main "$@"
