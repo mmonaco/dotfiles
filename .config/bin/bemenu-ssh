@@ -2,6 +2,10 @@
 
 main() {
 	declare -r host="$(_hosts | _menu "$@")"
+	if [[ -z $host ]]; then
+		printf "No host entered, exiting.\n" 
+		return
+	fi
 	declare -ra cmd=(ssh "$host")
 	printf "%s\n" "${cmd[*]}" >&2
 	exec "${cmd[@]}"
