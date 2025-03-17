@@ -67,6 +67,7 @@
 	pfl = !git push --force-with-lease
 	sw = switch
 	fm = fetch --multiple
+	fetch-pr = "!/usr/bin/bash -c 'declare -ri num=\"$1\" && shift; declare -r upstream=\"$(git rev-parse --abbrev-ref --symbolic-full-name @{u} | sed \"s#/.*##\")\"; declare -r repo=\"${1:-\"$upstream\"}\" && (( $# > 0 )) && shift; git fetch \"$repo\" \"pull/$num/head:pull/$num\" \"$@\"'" pr
 
 [include]
 	path = config.priv
