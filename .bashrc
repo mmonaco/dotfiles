@@ -57,11 +57,12 @@ if [[ "$TERM" = alacritty && ! -e /usr/share/terminfo/a/alacritty ]]; then
 	export TERM=xterm-256color
 fi
 
-prompt_command() {
+_prompt_command() {
 	printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"
 	# reboot-required defined below
 	reboot-required -q && PS1="[REBOOT] $BASE_PS1" || PS1="$BASE_PS1"
-}; export PROMPT_COMMAND=prompt_command
+}
+declare -a PROMPT_COMMAND=(_prompt_command)
 
 # ssh/gpg-agent:
 	if [[ "$SSH_AUTH_SOCK" == */S.gpg-agent.ssh ]]; then
