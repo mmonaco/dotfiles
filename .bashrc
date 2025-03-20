@@ -122,6 +122,7 @@ declare -a PROMPT_COMMAND=(_prompt_command)
 	alias grep='grep --color=auto'
 	alias cp='cp --reflink=auto'
 	alias vim='vim -p'
+	alias vimrc='vim ~/.config/vim/vimrc'
 	alias df='df -H'
 	alias srsync='rsync --rsync-path="sudo rsync"'
 	alias bashrc='source ~/.bashrc'
