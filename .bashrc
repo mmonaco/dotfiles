@@ -1,3 +1,5 @@
+# vim: set ft=bash:
+
 # .bashrc is sourced by interactive non-login shells. However, we source it
 # manually from .profile for login shells too.
 
