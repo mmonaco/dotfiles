@@ -127,7 +127,6 @@ declare -a PROMPT_COMMAND=(_prompt_command)
 	alias vimrc='vim ~/.config/vim/vimrc'
 	alias df='df -H'
 	alias srsync='rsync --rsync-path="sudo rsync"'
-	alias bashrc='source ~/.bashrc'
 	alias gcd='cd $(git rev-parse --show-toplevel)'
 	alias ct='tmux choose-tree'
 
@@ -236,10 +235,15 @@ fi
 		return 0
 	}
 
-# Allow bashrc snippets. I'm hot-and-cold on whether this is cleaner or not.
-# At least two good usecases are 1) large/messy snippets, 2) scratch or local
-# snippets that I don't want to track with dotfiles.git
-for f in ~/.config/bash.d/*.sh; do
-	[[ -r $f ]] && source "$f"
-done
-unset f
+# bashrc meta
+	alias bashrc='source ~/.bashrc'
+	bashrc-firstpass() {
+		[[ -z "${_bashrc_sourced:-}" ]]
+	}
+
+	for f in ~/.config/bash.d/*.sh; do
+		[[ -r $f ]] && source "$f"
+	done
+	unset f
+
+	bashrc-firstpass && declare -r _bashrc_sourced=1
