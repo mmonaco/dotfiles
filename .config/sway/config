@@ -13,6 +13,7 @@
 
 	input type:keyboard xkb_numlock enabled
 
+	include /etc/sway/config.d/*.conf"
 	include "~/.config/sway/config.d/*.sway.conf"
 	include "~/.config/sway/hosts.d/`uname -n`.sway.conf"
 
