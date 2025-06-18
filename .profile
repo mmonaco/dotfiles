@@ -26,6 +26,17 @@ add_path "$HOME/.config/bin" "$HOME/.local/bin"
 # logind doesn't seem to set this (I think it sets the other XDG vars)
 [[ "$XDG_CONFIG_HOME" ]] || export XDG_CONFIG_HOME="$HOME/.config"
 
+# locale/LANG
+if [[ ! "$LANG" ]]; then
+	if command -v locale &> /dev/null; then
+		if locale -a | grep -qi en_US.utf8; then
+			export LANG=en_US.UTF-8
+		else
+			export LANG=C.UTF-8
+		fi
+	fi
+fi
+
 # SSH/GPG Agent
 if [[ -z "$SSH_AUTH_SOCK" ]]; then
 	if systemctl --user is-active --quiet gpg-agent-ssh.socket; then
