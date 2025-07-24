@@ -1,0 +1,10 @@
+# See /usr/share/applications/mimeinfo.cache
+
+[Default Applications]
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+text/html=firefox.desktop;
+
+[Added Associations]
+image/jpeg=gimp.desktop;firefox.desktop;
+application/pdf=firefox.desktop;gimp.desktop;

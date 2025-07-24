@@ -1,0 +1,4 @@
+#!/bin/bash
+declare -a cmd=(/usr/bin/firefox "$@")
+[[ -x /usr/bin/firejail ]] && declare -a cmd=(/usr/bin/firejail "${cmd[@]}")
+exec "${cmd[@]}"
