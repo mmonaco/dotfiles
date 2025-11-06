@@ -71,8 +71,8 @@ main_inner() {
 		return 0
 	fi
 
-	info '%s threshold reached: %d ≤ %d.' "${type^}" "$capacity" "$threshold"
-	swaynag -t "$type" -m "$(info '%s threshold reached: %d ≤ %d.' "${type^}" "$capacity" "$threshold")" -B 'Poweroff' 'systemctl poweroff' -s 'Dismiss'
+	info '%s threshold reached: %d ≤ %d [%s].' "${type^}" "$capacity" "$threshold" "$status"
+	swaynag -t "$type" -m "$(info '%s threshold reached: %d ≤ %d [%s].' "${type^}" "$capacity" "$threshold" "$status")" -B 'Poweroff' 'systemctl poweroff' -s 'Dismiss'
 }
 
 main "$@"
