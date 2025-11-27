@@ -137,6 +137,9 @@ declare -a PROMPT_COMMAND=(_prompt_command)
 	randmac() {
 		perl -e 'for ($i=0;$i<5;$i++){@m[$i]=int(rand(256));} printf "02:%x:%x:%x:%x:%x\n",@m;'
 	}
+	path() {
+		<<<"$PATH" tr ':' $'\n'
+	}
 
 # systemd:
 if type systemctl &> /dev/null; then
