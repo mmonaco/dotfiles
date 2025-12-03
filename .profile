@@ -36,6 +36,7 @@ if [[ ! "$LANG" ]]; then
 		fi
 	fi
 fi
+export LC_COLLATE=C.UTF-8
 
 # SSH/GPG Agent
 if [[ -z "$SSH_AUTH_SOCK" ]]; then
