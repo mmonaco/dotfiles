@@ -58,6 +58,9 @@
 	# If multiple, the first key is used
 	defaultKeyCommand = ssh-add -L
 
+[absorb]
+	autoStageIfNothingStaged = true
+
 [alias]
 	# I like to start repos with an empty .gitconfig since it's pretty
 	# universal and gives a consistent root commit that I'd never need to
