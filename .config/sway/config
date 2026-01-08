@@ -12,6 +12,7 @@
 	set $xfont "-*-dejavu sans mono-*-r-*-*-*-*-*-*-*-*-*-*"
 
 	input type:keyboard xkb_numlock enabled
+	input "type:keyboard" xkb_options caps:escape
 
 	include /etc/sway/config.d/*.conf"
 	include "~/.config/sway/config.d/*.sway.conf"
