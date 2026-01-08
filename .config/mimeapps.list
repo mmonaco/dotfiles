@@ -4,7 +4,10 @@
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
 text/html=firefox.desktop;
+application/pdf=com.google.Chrome.desktop;
 
 [Added Associations]
 image/jpeg=gimp.desktop;firefox.desktop;
-application/pdf=firefox.desktop;gimp.desktop;
+application/pdf=com.google.Chrome.desktop;firefox.desktop;gimp.desktop;
+image/png=gimp.desktop;
+video/mp4=vlc.desktop;
