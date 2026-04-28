@@ -85,8 +85,8 @@ declare -a PROMPT_COMMAND=(_prompt_command)
 
 # bash history:
 	HISTCONTROL=ignoreboth
-	HISTSIZE=1000
-	HISTFILESIZE=10000
+	HISTSIZE=100000
+	HISTFILESIZE=1000000
 	grep-hist() {
 		grep "$@" ~/.bash_history
 	}
