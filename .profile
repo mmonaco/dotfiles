@@ -40,10 +40,18 @@ export LC_COLLATE=C.UTF-8
 
 # SSH/GPG Agent
 if [[ -z "$SSH_AUTH_SOCK" ]]; then
-	if systemctl --user is-active --quiet gpg-agent-ssh.socket; then
-		export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-		unset SSH_AGENT_PID
-	fi
+	for _sock in \
+		"$(command -v gpgconf >/dev/null 2>&1 && gpgconf --list-dirs agent-ssh-socket)" \
+		"${XDG_RUNTIME_DIR:-/run/user/$UID}/gnupg/S.gpg-agent.ssh" \
+		"${GNUPGHOME:-$HOME/.gnupg}/S.gpg-agent.ssh"
+	do
+		if [[ -n "$_sock" && -S "$_sock" ]]; then
+			export SSH_AUTH_SOCK="$_sock"
+			unset SSH_AGENT_PID
+			break
+		fi
+	done
+	unset _sock
 fi
 
 # Allow profile snippets. I'm hot-and-cold on whether this is cleaner or not.
