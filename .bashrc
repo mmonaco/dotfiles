@@ -219,18 +219,26 @@ fi
 
 # reboot detection:
 	# This is used in PROMPT_COMMAND and should be distro-agnostic
-	declare _is_container=
-	declare _cur_uname_r=$(uname -r)
+	declare _cur_uname_r=$(uname -r) _managed_kernel=
+	_detect_managed_kernel() {
+		_managed_kernel=0
+		[[ -d /lib/modules ]] || return
+		declare -ri init_pid_ns_ino=0xEFFFFFFC
+		(( $(stat -Lc %i /proc/self/ns/pid) == init_pid_ns_ino )) || return
+		command systemd-detect-virt -qc 2>/dev/null && return
+		_managed_kernel=1
+	}
 	reboot-required() {
-		[[ -z $_is_container ]] && { systemd-detect-virt -qc && _is_container=1 || _is_container=0 ; }
-		(( $_is_container )) && return 1
+		[[ -n "$_managed_kernel" ]] || _detect_managed_kernel
+		(( $_managed_kernel )) || return 1
 		declare -r quiet="$1" quiet_re='^(-q|--quiet)$'
+		declare latest_installed=
 		if [[ $_cur_uname_r = *lts* ]]; then
 			declare -r latest_installed=$(/bin/ls -1 /lib/modules/ | grep lts | tail -n1)
 		else
 			declare -r latest_installed=$(/bin/ls -1 /lib/modules/ | grep -v -e lts -e extramodules | tail -n1)
 		fi
-		[[ $latest_installed == $_cur_uname_r ]] && return 1
+		[[ -z "$latest_installed" || "$latest_installed" == "$_cur_uname_r" ]] && return 1
 		if ! [[ $quiet =~ $quiet_re ]]; then
 			printf 'REBOOT REQUIRED | Kernel Installed=<%s>; Running=<%s>\n' \
 				"$latest_installed" "$_cur_uname_r" >&2
