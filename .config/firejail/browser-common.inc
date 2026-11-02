@@ -1,0 +1,4 @@
+dbus-user.talk org.freedesktop.Notifications
+dbus-user.talk org.freedesktop.portal.Desktop
+
+private-etc cups/client.conf

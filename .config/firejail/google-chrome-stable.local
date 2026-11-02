@@ -1,2 +1,4 @@
+include browser-common.inc
+
 ignore whitelist /usr/share/mozilla/extensions
 ignore whitelist /usr/share/webext
